@@ -1,0 +1,166 @@
+*{
+    /* border: 1px solid black; */
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+body{
+    height: 96vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+
+.frame{
+    height: 500px;
+    width: 300px;
+    position: fixed;
+    top: 4%;
+    left: 41%;
+    border-radius: 40px;
+    background-color: #0ef187;
+    box-shadow: #415757 inset 0 0 15px;
+    background-image: url("https://www.transparenttextures.com/patterns/45-degree-fabric-dark.png");
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently
+                        supported by Chrome, Edge, Opera and Firefox */
+}
+
+#screen{
+    height: 48%;
+    width: 90%;
+    margin-top:15px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 20px;
+    position: relative;
+    /* background-color: hsl(0deg 0% 0% / 50%); */
+    box-shadow: #415757 inset 0 0 5px;
+    border: 3px solid #000000;
+}    
+
+#outer-wheel{
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    margin-top:20px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white;
+}
+
+.refl{
+    /* Reflection of The Frame for Diferent Browsers */
+    display:block;
+	-moz-transform: scaleY(-1);
+    -o-transform: scaleY(-1);
+    -webkit-transform: scaleY(-1);
+    transform: scaleY(-1);
+    -webkit-mask-image: -webkit-gradient(linear, right top, right bottom, from(transparent), color-stop(40%, transparent), to(rgba(88, 82, 82, 0.3)));
+    /* bottom: -53% !important; */
+    /* position: relative; */
+    /* left: 28.5px; */
+    top:84%;
+    /* z-index: -1; */
+}
+
+#menu-btn, #previous-btn, #next-btn, #play-btn, #pause-btn{
+    /* Giving all the buttons of wheel same font-color, font-size and position-relative */
+    color: grey;
+    font-size: 1.2rem;
+    position: relative;
+}
+/* Buttons Section */
+#menu-btn{
+    position: relative;
+    display: inline-block;
+    left: 36%;
+    top: 1.5%;
+    cursor: default;
+    cursor: pointer;
+}
+#previous-btn{
+    left: -25%;
+    top: 37%;
+    cursor: pointer;
+}
+#next-btn{
+    left: 53%;
+    top: 37%;
+    cursor: pointer;
+}
+#play-btn{
+    left: -6%;
+    top: 70%;
+    cursor: pointer;
+}
+#pause-btn{
+    left: 0%;
+    top: 70%;
+    cursor: pointer;
+}
+
+#center-button{
+    height: 75px;
+    width: 75px;
+    border-radius: 50%;
+    position: relative;
+    margin-top: 2%;
+    left:62.5px;
+    background-color: #0ef187;
+    background-image: url("https://www.transparenttextures.com/patterns/45-degree-fabric-dark.png");
+}
+
+#menu-bar{
+    background-color: white;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 16px;
+    z-index: 2;
+    position:absolute;
+}
+
+.menu-items{
+    margin-left: 10px;
+    margin-bottom: 0px;
+    margin-top:5px;
+    margin-right: 10px;
+}
+
+#wallpaper-image{
+    height: 100%;
+    width: 100%;
+    border-radius: 16px;
+    position: absolute;
+    z-index: 1;
+}
+
+#upper-nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: lightgrey;
+    margin-bottom: -10px;
+    height: 30px;
+    border-top-left-radius: 20px;
+}
+
+.fa-battery-full{
+    color: #1d9c61;   
+}
+
+#selected{
+    background-color: #0482d4;
+    color: white;
+}
