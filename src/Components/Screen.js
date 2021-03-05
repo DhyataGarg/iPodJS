@@ -2,8 +2,8 @@ import React from 'react';
 import PurpleFlowers from '../Wallpapers/flowers/PurpleFlowers.jpeg'
 
 function Screen(props) {
-    const menuItems = ["Music","Videos", "Photos", "Extras", "Now Playing", "Games", "Settings"];
-    console.log(menuItems[props.currentMenuItem] + props.currentMenuItem)
+    // const menuItems = ["Music","Videos", "Photos", "Extras", "Now Playing", "Games", "Settings"];
+    const currentMenuItems = props.currentMenuItems;
     return (
         <React.Fragment>
             <div id="screen">
@@ -14,7 +14,7 @@ function Screen(props) {
                         <i className="fas fa-battery-full"></i>
                     </div>
                     <hr width="100%" />
-                    {menuItems.map((items) => (items === menuItems[props.currentMenuItem] ? <p className="menu-items" id="selected" key={items}>{items}</p> : <p className="menu-items" key={items}>{items}</p>))}
+                    {currentMenuItems.map((items) => (items === currentMenuItems[props.currentMenuItem] ? <p className="menu-items" id="selected" key={items}>{items} <i class="fas fa-chevron-right"></i></p> : <p className="menu-items" key={items}>{items}</p>))}
 </div>
 
                     <div id="screen-glass"></div>
