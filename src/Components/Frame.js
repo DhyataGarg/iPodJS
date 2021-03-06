@@ -21,7 +21,7 @@ function Frame() {
     const nehaKakkarMenuItems = ["Oh Humsafar", "Dilbar"];
     const arijitSinghMenuItems = ["Sawan Aaya Hai", "Sanam Re"];
     const amrinderGillMenuItems = ["Ki Samjhaiye", "Yaarian"];
-    const [currentMenu, setCurrentMenu] = useState("mainMenu")
+    const [currentMenu, setCurrentMenu] = useState("mainMenu");
     const [currentMenuItem, setCurrentMenuItem] = useState(0);
     const [currentMenuItems, setCurrentMenuItems] = useState(mainMenuItems);
 
@@ -37,26 +37,55 @@ function Frame() {
     const [brightness, setBrightness] = useState(false);
     const [brightnessValue, setBrightnessValue] = useState(20);
 
+    const [wifi, setWIFI] = useState(false);
+    const [isWifiOn, setIsWifiOn] = useState(false);
+
+    const [bluetooth, setBluetooth] = useState(false);
+    const [isBluetoothOn, setIsBluetoothOn] = useState(false);
+
+    const [gps, setGPS] = useState(false);
+    const [isGPSOn, setIsGPSOn] = useState(false);
+
+    const [privacy, setPrivacy] = useState(false);
+
     const [isFullScreen, setIsFullScreen] = useState(false);
 
     const onClickForwardButton = () => {
-        if(brightness){
+        if (brightness) {
             setBrightnessValue(brightnessValue - 10);
         }
-        else{
+        else if (wifi) {
+            setIsWifiOn(true);
+        }
+        else if (bluetooth) {
+            setIsBluetoothOn(true);
+        }
+        else if (gps) {
+            setIsGPSOn(true);
+        }
+        else if (!isFullScreen) {
             if (currentMenuItem === currentMenuItems.length - 1) {
                 setCurrentMenuItem(0);
             } else {
                 setCurrentMenuItem(currentMenuItem + 1);
-            }    
+            }
         }
     }
 
     const onClickBackwardButton = () => {
-        if(brightness){
+        if (brightness) {
             setBrightnessValue(brightnessValue + 10);
         }
-        else{
+        else if (wifi) {
+            setIsWifiOn(false);
+        }
+        else if (bluetooth) {
+            setIsBluetoothOn(false);
+        }
+        else if (gps) {
+            setIsGPSOn(false);
+        }
+        else if (!isFullScreen) {
             if (currentMenuItem === 0) {
                 setCurrentMenuItem(currentMenuItems.length - 1);
             } else {
@@ -66,169 +95,231 @@ function Frame() {
     }
 
     const onClickMenuButton = () => {
-        if (!isFullScreen || brightness) {
+        if ((!isFullScreen || brightness || privacy) && !bluetooth && !wifi && !gps) {
             setCurrentMenu("mainMenu");
             setCurrentMenuItems(mainMenuItems);
             setCurrentMenuItem(0);
         }
         setIsFullScreen(false)
         setBrightness(false)
+        setPrivacy(false)
     }
 
     const onClickCenterButton = () => {
-        if (currentMenu === "mainMenu") {
-            if (currentMenuItem === 0){
-                setIsFullScreen(true);
+        if (!isFullScreen) {
+            if (currentMenu === "mainMenu") {
+                if (currentMenuItem === 0) {
+                    setIsFullScreen(true);
+                }
+
+                if (currentMenuItem === 1) {
+                    setCurrentMenu("musicMenu");
+                    setCurrentMenuItems(musicMenuItems);
+                    setCurrentMenuItem(0);
+                }
+                else if (currentMenuItem === 7) {
+                    setCurrentMenu("settingMenu");
+                    setCurrentMenuItems(settingMenuItems);
+                    setCurrentMenuItem(0);
+                }
             }
 
-            if (currentMenuItem === 1) {
-                setCurrentMenu("musicMenu");
-                setCurrentMenuItems(musicMenuItems);
-                setCurrentMenuItem(0);
+            else if (currentMenu === "settingMenu") {
+                if (currentMenuItem === 0) {
+                    setCurrentMenu("wallpaperMenu");
+                    setCurrentMenuItems(wallpaperMenuItems);
+                    setCurrentMenuItem(0);
+                }
+                else if (currentMenuItem === 1) {
+                    setBrightness(true);
+                    setIsFullScreen(false);
+                    setCurrentMenu("brightnessMenu");
+                }
+                else if (currentMenuItem === 2) {
+                    setWIFI(true);
+                    setIsFullScreen(false);
+                    setCurrentMenu("wifiMenu");
+                }
+                else if (currentMenuItem === 3) {
+                    setBluetooth(true);
+                    setIsFullScreen(false);
+                    setCurrentMenu("bluetoothMenu");
+                }
+                else if (currentMenuItem === 4) {
+                    setPrivacy(true);
+                    setIsFullScreen(false);
+                    setCurrentMenu("privacyMenu");
+                }
+                else if (currentMenuItem === 5) {
+                    setGPS(true);
+                    setIsFullScreen(false);
+                    setCurrentMenu("gpsMenu");
+                }
             }
-            else if (currentMenuItem === 7) {
+
+            else if (currentMenu === "gpsMenu") {
+                setIsFullScreen(true);
+                setGPS(false);
                 setCurrentMenu("settingMenu");
                 setCurrentMenuItems(settingMenuItems);
-                setCurrentMenuItem(0);
+                // setCurrentMenuItem(0);
             }
-        }
 
-        else if (currentMenu === "settingMenu") {
-            if (currentMenuItem === 0) {
-                setCurrentMenu("wallpaperMenu");
-                setCurrentMenuItems(wallpaperMenuItems);
-                setCurrentMenuItem(0);
+            else if (currentMenu === "bluetoothMenu") {
+                setIsFullScreen(true);
+                setBluetooth(false);
+                setCurrentMenu("settingMenu");
+                setCurrentMenuItems(settingMenuItems);
+                // setCurrentMenuItem(0);
             }
-            else if (currentMenuItem === 1) {
-                setBrightness(true);
-                setIsFullScreen(false);
-            }
-        }
 
-        else if (currentMenu === "musicMenu") {
-            if (currentMenuItem === 0) {
-                setCurrentMenu("songsMenu");
-                setCurrentMenuItems(songsMenuItems);
-                setCurrentMenuItem(0);
+            else if (currentMenu === "wifiMenu") {
+                setIsFullScreen(true);
+                setWIFI(false);
+                setCurrentMenu("settingMenu");
+                setCurrentMenuItems(settingMenuItems);
+                // setCurrentMenuItem(0);
             }
-            else if (currentMenuItem === 1) {
-                setCurrentMenu("artistMenu");
-                setCurrentMenuItems(artistMenuItems);
-                setCurrentMenuItem(0);
-            }
-        }
 
-        else if (currentMenu === "artistMenu") {
-            if (currentMenuItem === 0) {
-                setCurrentMenu("allenWalkerMenu");
-                setCurrentMenuItems(allenWalkerMenuItems);
-                setCurrentMenuItem(0);
+            else if (currentMenu === "privacyMenu") {
+                setIsFullScreen(true);
+                setPrivacy(false)
+                setCurrentMenu("settingMenu");
+                setCurrentMenuItems(settingMenuItems);
+                // setCurrentMenuItem(0);
             }
-            else if (currentMenuItem === 1) {
-                setCurrentMenu("taylorSwiftMenu");
-                setCurrentMenuItems(taylorSwiftMenuItems);
-                setCurrentMenuItem(0);
-            }
-            else if (currentMenuItem === 2) {
-                setCurrentMenu("nehaKakkarMenu");
-                setCurrentMenuItems(nehaKakkarMenuItems);
-                setCurrentMenuItem(0);
-            }
-            else if (currentMenuItem === 3) {
-                setCurrentMenu("arijitSinghMenu");
-                setCurrentMenuItems(arijitSinghMenuItems);
-                setCurrentMenuItem(0);
-            }
-            else if (currentMenuItem === 4) {
-                setCurrentMenu("amrinderGillMenu");
-                setCurrentMenuItems(amrinderGillMenuItems);
-                setCurrentMenuItem(0);
-            }
-        }
 
-        else if (currentMenu === "wallpaperMenu") {
-            if (currentMenuItem === 0) {
-                setCurrentMenu("birdsMenu");
-                setCurrentMenuItems(birdsMenuItems);
-                setCurrentMenuItem(0);
+            else if (currentMenu === "brightnessMenu") {
+                setIsFullScreen(true);
+                setBrightness(false);
+                setCurrentMenu("settingMenu");
+                setCurrentMenuItems(settingMenuItems);
+                // setCurrentMenuItem(0);
             }
-            else if (currentMenuItem === 1) {
-                setCurrentMenu("buildingsMenu");
-                setCurrentMenuItems(buildingsMenuItems);
-                setCurrentMenuItem(0);
-            }
-            else if (currentMenuItem === 2) {
-                setCurrentMenu("flowersMenu");
-                setCurrentMenuItems(flowersMenuItems);
-                setCurrentMenuItem(0);
-            }
-            else if (currentMenuItem === 3) {
-                setCurrentMenu("foodMenu");
-                setCurrentMenuItems(foodMenuItems);
-                setCurrentMenuItem(0);
-            }
-            else if (currentMenuItem === 4) {
-                setCurrentMenu("natureMenu");
-                setCurrentMenuItems(natureMenuItems);
-                setCurrentMenuItem(0);
-            }
-            else if (currentMenuItem === 5) {
-                setCurrentMenu("beachMenu");
-                setCurrentMenuItems(beachMenuItems);
-                setCurrentMenuItem(0);
-            }
-        }
 
-        else if (currentMenu === "birdsMenu") {
-            if (currentMenuItem === 0) {
-                setCurrentWallpaper(Bird);
-                setIsFullScreen(true);
+            else if (currentMenu === "musicMenu") {
+                if (currentMenuItem === 0) {
+                    setCurrentMenu("songsMenu");
+                    setCurrentMenuItems(songsMenuItems);
+                    setCurrentMenuItem(0);
+                }
+                else if (currentMenuItem === 1) {
+                    setCurrentMenu("artistMenu");
+                    setCurrentMenuItems(artistMenuItems);
+                    // setCurrentMenuItem(0);
+                }
             }
-        }
-        else if (currentMenu === "buildingsMenu") {
-            if (currentMenuItem === 0) {
-                setCurrentWallpaper(Egypt);
-                setIsFullScreen(true);
-            }
-        }
-        else if (currentMenu === "flowersMenu") {
-            if (currentMenuItem === 0) {
-                setCurrentWallpaper(WhiteFlowers);
-                setIsFullScreen(true);
-            }
-            else if (currentMenuItem === 1) {
-                setCurrentWallpaper(PurpleFlowers);
-                setIsFullScreen(true);
-            }
-        }
 
-        else if (currentMenu === "foodMenu") {
-            if (currentMenuItem === 0) {
-                setCurrentWallpaper(Food);
-                setIsFullScreen(true);
+            else if (currentMenu === "artistMenu") {
+                if (currentMenuItem === 0) {
+                    setCurrentMenu("allenWalkerMenu");
+                    setCurrentMenuItems(allenWalkerMenuItems);
+                    setCurrentMenuItem(0);
+                }
+                else if (currentMenuItem === 1) {
+                    setCurrentMenu("taylorSwiftMenu");
+                    setCurrentMenuItems(taylorSwiftMenuItems);
+                    setCurrentMenuItem(0);
+                }
+                else if (currentMenuItem === 2) {
+                    setCurrentMenu("nehaKakkarMenu");
+                    setCurrentMenuItems(nehaKakkarMenuItems);
+                    setCurrentMenuItem(0);
+                }
+                else if (currentMenuItem === 3) {
+                    setCurrentMenu("arijitSinghMenu");
+                    setCurrentMenuItems(arijitSinghMenuItems);
+                    setCurrentMenuItem(0);
+                }
+                else if (currentMenuItem === 4) {
+                    setCurrentMenu("amrinderGillMenu");
+                    setCurrentMenuItems(amrinderGillMenuItems);
+                    setCurrentMenuItem(0);
+                }
             }
-        }
 
-        else if (currentMenu === "natureMenu") {
-            if (currentMenuItem === 0) {
-                setCurrentWallpaper(Galaxy);
-                setIsFullScreen(true);
+            else if (currentMenu === "wallpaperMenu") {
+                if (currentMenuItem === 0) {
+                    setCurrentMenu("birdsMenu");
+                    setCurrentMenuItems(birdsMenuItems);
+                    setCurrentMenuItem(0);
+                }
+                else if (currentMenuItem === 1) {
+                    setCurrentMenu("buildingsMenu");
+                    setCurrentMenuItems(buildingsMenuItems);
+                    setCurrentMenuItem(0);
+                }
+                else if (currentMenuItem === 2) {
+                    setCurrentMenu("flowersMenu");
+                    setCurrentMenuItems(flowersMenuItems);
+                    setCurrentMenuItem(0);
+                }
+                else if (currentMenuItem === 3) {
+                    setCurrentMenu("foodMenu");
+                    setCurrentMenuItems(foodMenuItems);
+                    setCurrentMenuItem(0);
+                }
+                else if (currentMenuItem === 4) {
+                    setCurrentMenu("natureMenu");
+                    setCurrentMenuItems(natureMenuItems);
+                    setCurrentMenuItem(0);
+                }
+                else if (currentMenuItem === 5) {
+                    setCurrentMenu("beachMenu");
+                    setCurrentMenuItems(beachMenuItems);
+                    setCurrentMenuItem(0);
+                }
             }
-        }
-        else if (currentMenu === "beachMenu") {
-            if (currentMenuItem === 0) {
-                setCurrentWallpaper(Beach);
-                setIsFullScreen(true);
+
+            else if (currentMenu === "birdsMenu") {
+                if (currentMenuItem === 0) {
+                    setCurrentWallpaper(Bird);
+                    setIsFullScreen(true);
+                }
+            }
+            else if (currentMenu === "buildingsMenu") {
+                if (currentMenuItem === 0) {
+                    setCurrentWallpaper(Egypt);
+                    setIsFullScreen(true);
+                }
+            }
+            else if (currentMenu === "flowersMenu") {
+                if (currentMenuItem === 0) {
+                    setCurrentWallpaper(WhiteFlowers);
+                    setIsFullScreen(true);
+                }
+                else if (currentMenuItem === 1) {
+                    setCurrentWallpaper(PurpleFlowers);
+                    setIsFullScreen(true);
+                }
+            }
+
+            else if (currentMenu === "foodMenu") {
+                if (currentMenuItem === 0) {
+                    setCurrentWallpaper(Food);
+                    setIsFullScreen(true);
+                }
+            }
+
+            else if (currentMenu === "natureMenu") {
+                if (currentMenuItem === 0) {
+                    setCurrentWallpaper(Galaxy);
+                    setIsFullScreen(true);
+                }
+            }
+            else if (currentMenu === "beachMenu") {
+                if (currentMenuItem === 0) {
+                    setCurrentWallpaper(Beach);
+                    setIsFullScreen(true);
+                }
             }
         }
     }
-
-    console.log(currentMenuItems[currentMenuItem]);
 
     return (
 
         <div className="frame">
-            <Screen currentMenu={currentMenu} currentMenuItems={currentMenuItems} currentMenuItem={currentMenuItem} currentWallpaper={currentWallpaper} isFullScreen={isFullScreen} brightness = {brightness} brightnessValue = {brightnessValue}></Screen>
+            <Screen currentMenu={currentMenu} currentMenuItems={currentMenuItems} currentMenuItem={currentMenuItem} currentWallpaper={currentWallpaper} isFullScreen={isFullScreen} brightness={brightness} brightnessValue={brightnessValue} isWiFi={wifi} isWifiOn={isWifiOn} isBluetoothOn={isBluetoothOn} isBluetooth={bluetooth} isGPS = {gps} isGPSOn = {isGPSOn} privacy = {privacy}></Screen>
 
             <div id="outer-wheel">
                 <p id="menu-btn" onClick={onClickMenuButton}>MENU</p>
