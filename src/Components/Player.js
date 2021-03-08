@@ -1,5 +1,4 @@
 import React from 'react';
-import OnMyWay from './../AudioThumbnails/OnMyWay.jpg';
 
 function Player(props) {
     // const audio = document.getElementById("audio");
@@ -8,7 +7,7 @@ function Player(props) {
         <div class="player">
             <div class="main">
                 <div class="thumbnail">
-                    <img src={OnMyWay} alt="img" /></div>
+                    <img src={props.songThumbnail} alt="img" /></div>
                 <div class="seekbar">
                     <input type="range" id="progress-bar" value="100" />
                 </div>

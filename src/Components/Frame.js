@@ -7,8 +7,14 @@ import WhiteFlowers from './../Wallpapers/flowers/Flower1.jpeg';
 import Food from './../Wallpapers/food/food1.jpg';
 import Galaxy from './../Wallpapers/nature/Galaxy.jpg';
 import Beach from './../Wallpapers/water/Beach.jpg';
-import {newAudio, play, pause, isPlaying} from "./PlayerWorking";
+import {newAudio, play, pause, isPlaying,stop} from "./PlayerWorking";
 import OnMyWay from './../AudioFiles/OnMyWay.mp3';
+import Alone from './../AudioFiles/Alone.mp3';
+import BlankSpace from './../AudioFiles/BlankSpace.mp3';
+
+import OnMyWayThumbnail from './../AudioThumbnails/OnMyWay.jpg';
+import AloneThumbnail from './../AudioThumbnails/Alone.jpg';
+import BlankSpaceThumbnail from './../AudioThumbnails/BlankSpace.jpg';
 
 
 function Frame() {
@@ -29,6 +35,11 @@ function Frame() {
     const [currentMenuItems, setCurrentMenuItems] = useState(mainMenuItems);
     const [isMusic, setIsMusic] = useState(false);
     const [isPaused, setIsPaused] = useState(true);
+    const [isNewSong, setIsNewSong] = useState(false);
+    const [songName, setSongName] = useState("");
+    const [artistName, setArtistName] = useState("");
+    const [songURL, setSongURL] = useState("");
+    const [songThumbnail, setSongThumbnail] = useState("");
 
     // *************************************WallPapers Section*************************************************
     const wallpaperMenuItems = ["Birds", "Buildings", "Flowers", "Food", "Nature", "Beach"];
@@ -107,28 +118,31 @@ function Frame() {
             setCurrentMenuItems(mainMenuItems);
             setCurrentMenuItem(0);
         }
-        setIsFullScreen(false)
-        setBrightness(false)
-        setPrivacy(false)
+        setIsFullScreen(false);
+        setBrightness(false);
+        setPrivacy(false);
         setIsMusic(false);
     }
 
+    // console.log(isPlaying)
     const onClickPlayButton = () => {
         if(isMusic){
-            if(isPlaying === "notStarted"){
-                newAudio(OnMyWay);
+            if(isPlaying === "notStarted" || isNewSong){
+                newAudio(songURL);
             }else{
                 play();
             }
             setIsPaused(false);
+            setIsNewSong(false);
         }
     }
-
+console.log(isNewSong)
     const onClickPauseButton = () => { 
         if(isMusic){
             setIsPaused(true);
             pause();
         }
+        setIsNewSong(false)
     }
 
     const onClickCenterButton = () => {
@@ -266,8 +280,50 @@ function Frame() {
 
             else if (currentMenu === "alanWalkerMenu") {
                 if (currentMenuItem === 0) {
-                    setIsMusic(true);
+                    if(songName !== alanWalkerMenuItems[0]){
+                        setIsNewSong(true);
+                        stop();
+                    }
+                    setSongName(alanWalkerMenuItems[0]);
+                    setSongURL(OnMyWay);
+                    setSongThumbnail(OnMyWayThumbnail);
                 }
+                else if (currentMenuItem === 1) {
+                    if(songName !== alanWalkerMenuItems[1]){
+                        setIsNewSong(true);
+                        stop();
+                    }
+                    setSongName(alanWalkerMenuItems[1]);
+                    setSongURL(Alone);
+                    setSongThumbnail(AloneThumbnail);
+                    pause();
+                }
+                setIsMusic(true);
+                setArtistName("Alan Walker");
+            }
+
+            else if (currentMenu === "taylorSwiftMenu") {
+                if (currentMenuItem === 0) {
+                    if(songName !== taylorSwiftMenuItems[0]){
+                        setIsNewSong(true);
+                        stop();
+                    }
+                    setSongName(taylorSwiftMenuItems[0]);
+                    setSongURL(BlankSpace);
+                    setSongThumbnail(BlankSpaceThumbnail);
+                }
+                // else if (currentMenuItem === 1) {
+                //     if(songName !== taylorSwiftMenuItems[1]){
+                //         setIsNewSong(true);
+                //         stop();
+                //     }
+                //     setSongName(taylorSwiftMenuItems[1]);
+                //     setSongURL(Alone);
+                //     setSongThumbnail(AloneThumbnail);
+                //     pause();
+                // }
+                setIsMusic(true);
+                setArtistName("Taylor Swift");
             }
 
             else if (currentMenu === "wallpaperMenu") {
@@ -352,7 +408,7 @@ function Frame() {
     return (
 
         <div className="frame">
-            <Screen currentMenu={currentMenu} currentMenuItems={currentMenuItems} currentMenuItem={currentMenuItem} currentWallpaper={currentWallpaper} isFullScreen={isFullScreen} brightness={brightness} brightnessValue={brightnessValue} isWiFi={wifi} isWifiOn={isWifiOn} isBluetoothOn={isBluetoothOn} isBluetooth={bluetooth} isGPS = {gps} isGPSOn = {isGPSOn} privacy = {privacy} isMusic = {isMusic} isPaused = {isPaused}></Screen>
+            <Screen currentMenu={currentMenu} currentMenuItems={currentMenuItems} currentMenuItem={currentMenuItem} currentWallpaper={currentWallpaper} isFullScreen={isFullScreen} brightness={brightness} brightnessValue={brightnessValue} isWiFi={wifi} isWifiOn={isWifiOn} isBluetoothOn={isBluetoothOn} isBluetooth={bluetooth} isGPS = {gps} isGPSOn = {isGPSOn} privacy = {privacy} isMusic = {isMusic} isPaused = {isPaused} songName = {songName} artistName = {artistName} songThumbnail = {songThumbnail}></Screen>
 
             <div id="outer-wheel">
                 <p id="menu-btn" onClick={onClickMenuButton}>MENU</p>

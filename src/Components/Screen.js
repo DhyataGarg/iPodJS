@@ -16,7 +16,7 @@ function Screen(props) {
                 {props.isGPS && <div id="set-settings-screen"><h3>GPS</h3><Toggle isGPSOn = {props.isGPSOn} /></div>}
                 {props.privacy && <div id="set-settings-screen"><p><b>Your device is secured.</b></p><img src={Lock} alt="Lock" id="lock-img" /></div>}
 
-                {props.isMusic && <div id="song-view"><Player songName="On My Way" artistName="Alan Walker" isPaused = {props.isPaused} ></Player></div>}
+                {props.isMusic && <div id="song-view"><Player songName={props.songName} artistName={props.artistName} isPaused = {props.isPaused} songThumbnail = {props.songThumbnail}></Player></div>}
 
                 {!props.isFullScreen &&
                     <div id="menu-bar">

@@ -25,7 +25,8 @@ function play(){
     interval = setInterval(function(){
         if (isPlaying !== "notStarted"){
             let currentTimeAccurate = audio.currentTime;
-            document.getElementById("progress-bar").style.width = `${(currentTimeAccurate/duration)*100}%`;
+            try{document.getElementById("progress-bar").style.width = `${(currentTimeAccurate/duration)*100}%`;}
+            catch(err){}
         }
         if(audio.currentTime === audio.duration){
             clearInterval(interval);
@@ -40,18 +41,28 @@ function pause(){
     audio.pause();
 }
 
-
+// Stop Function
+function stop(){
+    // Now our work is to pause the song and then set the Current Time of the song to 00:00 second. This task would act like that we have stopped the current song.
+    if(isPlaying !== "notStarted"){
+        clearInterval(interval)
+        audio.pause();
+        audio.currentTime = 0;
+    }
+        
+    isPlaying = 'notStarted';
+}
 
 //--------------------------- Functions for setting progress of song on click or on dragging --------------------
 
 // This One is When The User Clicks On Any Portion of the SongProgress Bar, The Song's Duration Would Reach to that Part
 function setProgress(xPos, playerWidth) {
     const xPosPercent = (xPos/playerWidth)*100;
-    document.getElementById("progress").style.width = (xPosPercent+1.5) + "%";
+    document.getElementById("progress-bar").style.width = (xPosPercent+1.5) + "%";
     const currentTime = (xPosPercent/100)*duration;
     audio.currentTime = currentTime;
 }
 
 
 // Exporting All The Functions So We Can Use Them Inside The Frame.jsx and Screen.jsx
-export {newAudio, play, pause, setProgress, isPlaying};
+export {newAudio, play, pause, setProgress, stop, isPlaying};
