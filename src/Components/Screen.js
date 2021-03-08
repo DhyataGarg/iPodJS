@@ -1,6 +1,7 @@
 import React from 'react';
 import Toggle from './Toggle';
-import Lock from './../GifFiles/Lock.gif'
+import Lock from './../GifFiles/Lock.gif';
+import Player from './Player';
 
 function Screen(props) {
     const currentMenuItems = props.currentMenuItems;
@@ -15,9 +16,10 @@ function Screen(props) {
                 {props.isGPS && <div id="set-settings-screen"><h3>GPS</h3><Toggle isGPSOn = {props.isGPSOn} /></div>}
                 {props.privacy && <div id="set-settings-screen"><p><b>Your device is secured.</b></p><img src={Lock} alt="Lock" id="lock-img" /></div>}
 
+                {props.isMusic && <div id="song-view"><Player songName="On My Way" artistName="Alan Walker" isPaused = {props.isPaused} ></Player></div>}
+
                 {!props.isFullScreen &&
                     <div id="menu-bar">
-
                         <div id="upper-nav">
                             <p className="menu-items" id="nav-heading"><b>iPod</b></p>
                             {props.isWifiOn && <i class="fas fa-wifi"></i>}
@@ -27,7 +29,7 @@ function Screen(props) {
                         </div>
 
                         <hr width="100%" />
-
+                        
                         {currentMenuItems.map((items) => (items === currentMenuItems[props.currentMenuItem] ? <p className="menu-items" id="selected" key={items}>{items} <i class="fas fa-chevron-right"></i></p> : <p className="menu-items" key={items}>{items}</p>))}</div>
                 }
 

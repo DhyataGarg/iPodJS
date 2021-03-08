@@ -7,16 +7,19 @@ import WhiteFlowers from './../Wallpapers/flowers/Flower1.jpeg';
 import Food from './../Wallpapers/food/food1.jpg';
 import Galaxy from './../Wallpapers/nature/Galaxy.jpg';
 import Beach from './../Wallpapers/water/Beach.jpg';
+import {newAudio, play, pause, isPlaying} from "./PlayerWorking";
+import OnMyWay from './../AudioFiles/OnMyWay.mp3';
+
 
 function Frame() {
-
+    
     const mainMenuItems = ["Cover Flow", "Music", "Videos", "Photos", "Extras", "Now Playing", "Games", "Settings"];
     const settingMenuItems = ["Set Wallpaper", "Brightness", "WiFi", "Bluetooth", "Privacy", "GPS"];
     //    *****************************************Msic Secction*********************************************
     const musicMenuItems = ["All Songs", "Artists", "Favourites"];
     const songsMenuItems = ["On My Way", "Oh Humsafar", "Ki Samjhaiye", "Sawan Aaya Hai", "Alone", "Dilbar", "Yaarian", "Blank Space"];
-    const artistMenuItems = ["Allen Walker", "Taylor Swift", "Neha Kakkar", "Arijit Singh", "Amrinder Gill"]
-    const allenWalkerMenuItems = ["On My Way", "Alone"];
+    const artistMenuItems = ["Alan Walker", "Taylor Swift", "Neha Kakkar", "Arijit Singh", "Amrinder Gill"]
+    const alanWalkerMenuItems = ["On My Way", "Alone"];
     const taylorSwiftMenuItems = ["Blank Space", "Love Story"];
     const nehaKakkarMenuItems = ["Oh Humsafar", "Dilbar"];
     const arijitSinghMenuItems = ["Sawan Aaya Hai", "Sanam Re"];
@@ -24,6 +27,8 @@ function Frame() {
     const [currentMenu, setCurrentMenu] = useState("mainMenu");
     const [currentMenuItem, setCurrentMenuItem] = useState(0);
     const [currentMenuItems, setCurrentMenuItems] = useState(mainMenuItems);
+    const [isMusic, setIsMusic] = useState(false);
+    const [isPaused, setIsPaused] = useState(true);
 
     // *************************************WallPapers Section*************************************************
     const wallpaperMenuItems = ["Birds", "Buildings", "Flowers", "Food", "Nature", "Beach"];
@@ -38,7 +43,7 @@ function Frame() {
     const [brightnessValue, setBrightnessValue] = useState(20);
 
     const [wifi, setWIFI] = useState(false);
-    const [isWifiOn, setIsWifiOn] = useState(false);
+    const [isWifiOn, setIsWifiOn] = useState(true);
 
     const [bluetooth, setBluetooth] = useState(false);
     const [isBluetoothOn, setIsBluetoothOn] = useState(false);
@@ -49,6 +54,8 @@ function Frame() {
     const [privacy, setPrivacy] = useState(false);
 
     const [isFullScreen, setIsFullScreen] = useState(false);
+
+
 
     const onClickForwardButton = () => {
         if (brightness) {
@@ -103,6 +110,25 @@ function Frame() {
         setIsFullScreen(false)
         setBrightness(false)
         setPrivacy(false)
+        setIsMusic(false);
+    }
+
+    const onClickPlayButton = () => {
+        if(isMusic){
+            if(isPlaying === "notStarted"){
+                newAudio(OnMyWay);
+            }else{
+                play();
+            }
+            setIsPaused(false);
+        }
+    }
+
+    const onClickPauseButton = () => { 
+        if(isMusic){
+            setIsPaused(true);
+            pause();
+        }
     }
 
     const onClickCenterButton = () => {
@@ -206,14 +232,14 @@ function Frame() {
                 else if (currentMenuItem === 1) {
                     setCurrentMenu("artistMenu");
                     setCurrentMenuItems(artistMenuItems);
-                    // setCurrentMenuItem(0);
+                    setCurrentMenuItem(0);
                 }
             }
 
             else if (currentMenu === "artistMenu") {
                 if (currentMenuItem === 0) {
-                    setCurrentMenu("allenWalkerMenu");
-                    setCurrentMenuItems(allenWalkerMenuItems);
+                    setCurrentMenu("alanWalkerMenu");
+                    setCurrentMenuItems(alanWalkerMenuItems);
                     setCurrentMenuItem(0);
                 }
                 else if (currentMenuItem === 1) {
@@ -235,6 +261,12 @@ function Frame() {
                     setCurrentMenu("amrinderGillMenu");
                     setCurrentMenuItems(amrinderGillMenuItems);
                     setCurrentMenuItem(0);
+                }
+            }
+
+            else if (currentMenu === "alanWalkerMenu") {
+                if (currentMenuItem === 0) {
+                    setIsMusic(true);
                 }
             }
 
@@ -316,17 +348,18 @@ function Frame() {
         }
     }
 
+
     return (
 
         <div className="frame">
-            <Screen currentMenu={currentMenu} currentMenuItems={currentMenuItems} currentMenuItem={currentMenuItem} currentWallpaper={currentWallpaper} isFullScreen={isFullScreen} brightness={brightness} brightnessValue={brightnessValue} isWiFi={wifi} isWifiOn={isWifiOn} isBluetoothOn={isBluetoothOn} isBluetooth={bluetooth} isGPS = {gps} isGPSOn = {isGPSOn} privacy = {privacy}></Screen>
+            <Screen currentMenu={currentMenu} currentMenuItems={currentMenuItems} currentMenuItem={currentMenuItem} currentWallpaper={currentWallpaper} isFullScreen={isFullScreen} brightness={brightness} brightnessValue={brightnessValue} isWiFi={wifi} isWifiOn={isWifiOn} isBluetoothOn={isBluetoothOn} isBluetooth={bluetooth} isGPS = {gps} isGPSOn = {isGPSOn} privacy = {privacy} isMusic = {isMusic} isPaused = {isPaused}></Screen>
 
             <div id="outer-wheel">
                 <p id="menu-btn" onClick={onClickMenuButton}>MENU</p>
                 <i className="fas fa-fast-forward" id="next-btn" onClick={onClickForwardButton}></i>
                 <i className="fas fa-fast-backward" id="previous-btn" onClick={onClickBackwardButton}></i>
-                <i className="fas fa-play" id="play-btn"></i>
-                <i className="fas fa-pause" id="pause-btn"></i>
+                <i className="fas fa-play" id="play-btn" onClick={onClickPlayButton}></i>
+                <i className="fas fa-pause" id="pause-btn" onClick={onClickPauseButton}></i>
                 <div id="center-button" onClick={onClickCenterButton}></div>
             </div>
         </div>
