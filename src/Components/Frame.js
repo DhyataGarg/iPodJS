@@ -25,12 +25,9 @@ function Frame() {
     //    *****************************************Msic Secction*********************************************
     const musicMenuItems = ["All Songs", "Artists", "Favourites"];
     const songsMenuItems = ["On My Way", "Love Story", "Alone", "Blank Space"];
-    const artistMenuItems = ["Alan Walker", "Taylor Swift", "Neha Kakkar", "Arijit Singh", "Amrinder Gill"]
+    const artistMenuItems = ["Alan Walker", "Taylor Swift"]
     const alanWalkerMenuItems = ["On My Way", "Alone"];
     const taylorSwiftMenuItems = ["Blank Space", "Love Story"];
-    const nehaKakkarMenuItems = ["Oh Humsafar", "Dilbar"];
-    const arijitSinghMenuItems = ["Sawan Aaya Hai", "Sanam Re"];
-    const amrinderGillMenuItems = ["Ki Samjhaiye", "Yaarian"];
     const [currentMenu, setCurrentMenu] = useState("mainMenu");
     const [currentMenuItem, setCurrentMenuItem] = useState(0);
     const [currentMenuItems, setCurrentMenuItems] = useState(mainMenuItems);
@@ -69,7 +66,7 @@ function Frame() {
 
 
 
-    const onClickForwardButton = () => {
+    const onClickForwardButton = () => { 
         if (brightness) {
             setBrightnessValue(brightnessValue - 10);
         }
@@ -82,21 +79,26 @@ function Frame() {
         else if (gps) {
             setIsGPSOn(true);
         }
-        else if (!isFullScreen) {
+        else if (!isFullScreen && !isMusic) {
             if (currentMenuItem === currentMenuItems.length - 1) {
                 setCurrentMenuItem(0);
             } else {
                 setCurrentMenuItem(currentMenuItem + 1);
             }
         }
-        // if(isMusic){
-        //     // stop();
-        //     setCurrentMenu("songsMenu")
-        //     setCurrentMenuItem(currentMenuItem + 1);
-        //     setIsNewSong(true);
-        // }
+        else if(isMusic){
+            onClickCenterButton();
+            stop();
+            setIsPaused(true);
+            if (currentMenuItem === currentMenuItems.length - 1){
+                setCurrentMenuItem(0);
+            }
+            else{
+                setCurrentMenuItem(currentMenuItem + 1);
+            }
+        }
     }
-
+    
     const onClickBackwardButton = () => {
         if (brightness) {
             setBrightnessValue(brightnessValue + 10);
@@ -110,17 +112,26 @@ function Frame() {
         else if (gps) {
             setIsGPSOn(false);
         }
-        else if (!isFullScreen) {
+        else if (!isFullScreen && !isMusic) {
             if (currentMenuItem === 0) {
                 setCurrentMenuItem(currentMenuItems.length - 1);
             } else {
                 setCurrentMenuItem(currentMenuItem - 1);
             }
         }
+        if(isMusic){
+            setIsNewSong(true);
+            stop();
+            setCurrentMenuItem(currentMenuItem - 1);
+            onClickCenterButton();
+            if (currentMenuItem === 0){
+                setCurrentMenuItem(currentMenuItems.length - 1);
+            }
+        }
     }
 
     const onClickMenuButton = () => {
-        if ((!isFullScreen || brightness || privacy) && !bluetooth && !wifi && !gps) {
+        if ((!isFullScreen || !brightness || privacy) && !bluetooth && !wifi && !gps) {
             setCurrentMenu("mainMenu");
             setCurrentMenuItems(mainMenuItems);
             setCurrentMenuItem(0);
@@ -131,24 +142,20 @@ function Frame() {
         setIsMusic(false);
     }
 
-    const onClickPlayButton = () => {
-        if (isMusic) {
-            if (isPlaying === "notStarted" || isNewSong) {
-                newAudio(songURL);
-            } else {
-                play();
-            }
-            setIsPaused(false);
+    const onClickPlayPauseButton = () => {
+        if (isMusic || currentMenu === "mainMenu") {
+            if(isPaused){
+                if (isPlaying === "notStarted" || isNewSong) {
+                    newAudio(songURL);
+                } else {
+                    play();
+                }
+                setIsPaused(false);
+            }else{setIsPaused(true);
+                pause();}
+            
             setIsNewSong(false);
         }
-    }
-
-    const onClickPauseButton = () => {
-        if (isMusic) {
-            setIsPaused(true);
-            pause();
-        }
-        setIsNewSong(false)
     }
 
     const onClickCenterButton = () => {
@@ -162,6 +169,10 @@ function Frame() {
                         case 1:
                             changeMenu("musicMenu", musicMenuItems);
                             break;
+                        case 5:
+                            changeMenu("songsMenu", songsMenuItems)
+                            setIsMusic(true);
+                            break;    
                         case 7:
                             changeMenu("settingMenu", settingMenuItems);
                             break;
@@ -197,22 +208,27 @@ function Frame() {
 
                 case "gpsMenu":
                     setDeviceSettings(setGPS);
+                    onClickMenuButton();
                     break;
 
                 case "bluetoothMenu":
                     setDeviceSettings(setBluetooth);
+                    onClickMenuButton();
                     break;
 
                 case "wifiMenu":
                     setDeviceSettings(setWIFI);
+                    onClickMenuButton();
                     break;
 
                 case "privacyMenu":
                     setDeviceSettings(setPrivacy);
+                    onClickMenuButton();
                     break;
 
                 case "brightnessMenu":
                     setDeviceSettings(setBrightness);
+                    onClickMenuButton();
                     break;
 
                 case "musicMenu":
@@ -227,16 +243,16 @@ function Frame() {
                 case "songsMenu":
                     switch (currentMenuItem) {
                         case 0:
-                            setCurrentSongDetails(alanWalkerMenuItems, 0, OnMyWay, OnMyWayThumbnail, "Alan Walker");
+                            setCurrentSongDetails(songsMenuItems, 0, OnMyWay, OnMyWayThumbnail, "Alan Walker");
                             break;
                         case 1:
-                            setCurrentSongDetails(taylorSwiftMenuItems, 1, LoveStory, LoveStoryThumbnail, "Taylor Swift");
+                            setCurrentSongDetails(songsMenuItems, 1, LoveStory, LoveStoryThumbnail, "Taylor Swift");
                             break;
                         case 2:
-                            setCurrentSongDetails(alanWalkerMenuItems, 1, Alone, AloneThumbnail, "Alan Walker")
+                            setCurrentSongDetails(songsMenuItems, 2, Alone, AloneThumbnail, "Alan Walker")
                             break;
                         case 3:
-                            setCurrentSongDetails(taylorSwiftMenuItems, 0, BlankSpace, BlankSpaceThumbnail, "Taylor Swift")
+                            setCurrentSongDetails(songsMenuItems, 3, BlankSpace, BlankSpaceThumbnail, "Taylor Swift")
                             break;
                         default:
                             break;    
@@ -248,21 +264,8 @@ function Frame() {
                                 case 0:
                                     changeMenu("alanWalkerMenu", alanWalkerMenuItems);
                                     break;
-
                                 case 1:
                                     changeMenu("taylorSwiftMenu", taylorSwiftMenuItems);
-                                    break;
-
-                                case 2:
-                                    changeMenu("nehaKakkarMenu", nehaKakkarMenuItems);
-                                    break;
-
-                                case 3:
-                                    changeMenu("arijitSinghMenu", arijitSinghMenuItems);
-                                    break;
-
-                                case 4:
-                                    changeMenu("amrinderGillMenu", amrinderGillMenuItems);
                                     break;
                                 default:
                                     break;
@@ -391,8 +394,10 @@ function Frame() {
                     <p id="menu-btn" onClick={onClickMenuButton}>MENU</p>
                     <i className="fas fa-fast-forward" id="next-btn" onClick={onClickForwardButton}></i>
                     <i className="fas fa-fast-backward" id="previous-btn" onClick={onClickBackwardButton}></i>
-                    <i className="fas fa-play" id="play-btn" onClick={onClickPlayButton}></i>
-                    <i className="fas fa-pause" id="pause-btn" onClick={onClickPauseButton}></i>
+                    <span id="play-pause-btn" onClick={onClickPlayPauseButton}>
+                        <i className="fas fa-play" id="play-btn"></i>
+                        <i className="fas fa-pause" id="pause-btn"></i>
+                    </span>
                     <div id="center-button" onClick={onClickCenterButton}></div>
                 </div>
             </div>

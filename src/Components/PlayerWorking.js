@@ -10,6 +10,8 @@ function newAudio(url){
     // Getting the Duration of the Song
     audio.addEventListener('canplay', function(e){
         duration =  Math.round(audio.duration);
+        try{document.getElementById("progress-bar").style.width = `${100}%`;}
+        catch(err){}
     });
     // Callback to Play Function
     play();

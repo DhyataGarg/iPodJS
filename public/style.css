@@ -105,7 +105,7 @@ body{
     top: 37%;
     cursor: pointer;
 }
-#play-btn{
+/* #play-btn{
     left: -6%;
     top: 70%;
     cursor: pointer;
@@ -114,6 +114,13 @@ body{
     left: 0%;
     top: 70%;
     cursor: pointer;
+} */
+
+#play-pause-btn{
+    left: -3%;
+    top: 70%;
+    cursor: pointer;
+    position: relative;
 }
 
 #center-button{
@@ -183,19 +190,19 @@ body{
 
 .fa-wifi{
     color:#0482d4;
-    margin-right: -10px;
+    margin-right: -5px;
     font-size: 0.8rem;
 }
 
 .fa-bluetooth-b{
     color: white;
-    margin-right: -10px;
+    margin-right: -5px;
     font-size: 0.8rem;
 }
 
 .fa-map-marker-alt{
     color: black;
-    margin-right: -10px;
+    margin-right: -5px;
     font-size: 0.8rem;
 }
 
