@@ -6,7 +6,8 @@ function Player(props) {
     return (
         <div class="player">
             <div class="main">
-                <div class="thumbnail">
+
+            {props.mediaType === "Music" && <React.Fragment><div className="thumbnail">
                     <img src={props.songThumbnail} alt="img" /></div>
                 <div class="seekbar">
                     <input type="range" id="progress-bar" value="100" />
@@ -14,7 +15,19 @@ function Player(props) {
                 <div class="details">
                     <h2>{props.songName}</h2>
                     <p>{props.artistName}</p>
+                </div></React.Fragment>
+                }
+
+                {props.mediaType === "Video" && 
+                <React.Fragment>
+                <div className = "thumbnail">
+                    <video id="video"></video>
                 </div>
+                <div class="seekbar">
+                    <input type="range" id="progress-bar" value="100" />
+                </div>
+                </React.Fragment>
+                }
                 <div class="controls">
                     <div class="prev-control">
                         <i class="fa fa-backward"></i>

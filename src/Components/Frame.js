@@ -7,16 +7,16 @@ import WhiteFlowers from './../Wallpapers/flowers/Flower1.jpeg';
 import Food from './../Wallpapers/food/food1.jpg';
 import Galaxy from './../Wallpapers/nature/Galaxy.jpg';
 import Beach from './../Wallpapers/water/Beach.jpg';
-import { newAudio, play, pause, isPlaying, stop, setProgressForward, stopProgressForward, playNextSong, setProgressBackward, stopProgressBackward} from "./PlayerWorking";
+import {newVideo, newAudio, play, pause, isPlaying, stop, setProgressForward, stopProgressForward, playNextSong, setProgressBackward, stopProgressBackward} from "./PlayerWorking";
 import OnMyWay from './../AudioFiles/OnMyWay.mp3';
 import Alone from './../AudioFiles/Alone.mp3';
 import BlankSpace from './../AudioFiles/BlankSpace.mp3';
 import LoveStory from './../AudioFiles/LoveStory.mp3';
-
 import OnMyWayThumbnail from './../AudioThumbnails/OnMyWay.jpg';
 import AloneThumbnail from './../AudioThumbnails/Alone.jpg';
 import BlankSpaceThumbnail from './../AudioThumbnails/BlankSpace.jpg';
 import LoveStoryThumbnail from './../AudioThumbnails/LoveStory.jpg';
+import Ocean from "./../VideoFiles/oceans.mp4";
 
 function Frame() {
 
@@ -24,6 +24,8 @@ function Frame() {
     const settingMenuItems = ["Set Wallpaper", "Brightness", "WiFi", "Bluetooth", "Privacy", "GPS"];
     //    *****************************************Msic Secction*********************************************
     const musicMenuItems = ["All Songs", "Artists", "Favourites"];
+    const videosMenuItems = ["All Videos"];
+    const allVideoItems = ["Ocean"];
     const songsMenuItems = ["On My Way", "Love Story", "Alone", "Blank Space"];
     const artistMenuItems = ["Alan Walker", "Taylor Swift"]
     const alanWalkerMenuItems = ["On My Way", "Alone"];
@@ -38,6 +40,10 @@ function Frame() {
     const [artistName, setArtistName] = useState("");
     const [songURL, setSongURL] = useState("");
     const [songThumbnail, setSongThumbnail] = useState("");
+
+    const [isVideo, setIsVideo] = useState(false);
+    const [isNewVideo, setIsNewVideo] = useState(false);
+    const [videoURL, setVideoURL] = useState("")
 
     // *************************************WallPapers Section*************************************************
     const wallpaperMenuItems = ["Birds", "Buildings", "Flowers", "Food", "Nature", "Beach"];
@@ -120,13 +126,14 @@ function Frame() {
             }
         }
         if(isMusic && playNextSong){
-            setIsNewSong(true);
+            setIsPaused(true)
             stop();
-            setCurrentMenuItem(currentMenuItem - 1);
-            onClickCenterButton();
             if (currentMenuItem === 0){
                 setCurrentMenuItem(currentMenuItems.length - 1);
+            }else { setCurrentMenuItem(currentMenuItem - 1);
             }
+            onClickCenterButton();
+
         }
     }
 
@@ -140,10 +147,13 @@ function Frame() {
         setBrightness(false);
         setPrivacy(false);
         setIsMusic(false);
+        setIsVideo(false);
     }
 
     const onClickPlayPauseButton = () => {
+        console.log("button clicked")
         if (isMusic || currentMenu === "mainMenu") {
+            console.log("music sec")
             if(isPaused){
                 if (isPlaying === "notStarted" || isNewSong) {
                     newAudio(songURL);
@@ -155,6 +165,24 @@ function Frame() {
                 pause();}
             
             setIsNewSong(false);
+        }
+
+        else if (isVideo){
+            console.log("vid sec")
+            if(isPaused){
+                console.log("new vid")
+                if (isPlaying === "notStarted") {
+                    newVideo(videoURL);
+                } else {
+                    play();
+                }
+                setIsPaused(false);
+            }else{
+                console.log("pased vid")
+                setIsPaused(true);
+                pause();}
+            
+            setIsNewVideo(false)
         }
     }
 
@@ -168,6 +196,9 @@ function Frame() {
                             break;
                         case 1:
                             changeMenu("musicMenu", musicMenuItems);
+                            break;
+                        case 2:
+                            changeMenu("videosMenu", videosMenuItems);
                             break;
                         case 5:
                             if(isPlaying === "notStarted"){
@@ -183,6 +214,21 @@ function Frame() {
                             break;
                     };
                     break;
+
+                case "videosMenu":
+                    changeMenu("allVideosMenu", allVideoItems)
+                    break;    
+
+                case "allVideosMenu":
+                    switch (currentMenuItem){
+                        case 0:
+                            setCurrentVideoDetails(Ocean)
+                            break;
+
+                        default:
+                            break;
+                    }    
+                break;    
 
                 case "settingMenu":
                     switch (currentMenuItem) {
@@ -352,6 +398,15 @@ function Frame() {
             }
         }
 
+        const setCurrentVideoDetails =(currentVideoURL) => {
+            // setIsNewSong(true);
+            stop();
+            setIsMusic(false);
+            setIsVideo(true);
+            setIsPaused(true);
+            setVideoURL(currentVideoURL);
+        }
+
         const setCurrentSongDetails = (menuItems, menuItemsIndex, currentSongURL, currentSongThumbnail, curretArtistName) => {
             if (songName !== menuItems[menuItemsIndex]) {
                 setIsNewSong(true);
@@ -391,12 +446,12 @@ function Frame() {
         return (
 
             <div className="frame">
-                <Screen currentMenu={currentMenu} currentMenuItems={currentMenuItems} currentMenuItem={currentMenuItem} currentWallpaper={currentWallpaper} isFullScreen={isFullScreen} brightness={brightness} brightnessValue={brightnessValue} isWiFi={wifi} isWifiOn={isWifiOn} isBluetoothOn={isBluetoothOn} isBluetooth={bluetooth} isGPS={gps} isGPSOn={isGPSOn} privacy={privacy} isMusic={isMusic} isPaused={isPaused} songName={songName} artistName={artistName} songThumbnail={songThumbnail}></Screen>
+                <Screen currentMenu={currentMenu} currentMenuItems={currentMenuItems} currentMenuItem={currentMenuItem} currentWallpaper={currentWallpaper} isFullScreen={isFullScreen} brightness={brightness} brightnessValue={brightnessValue} isWiFi={wifi} isWifiOn={isWifiOn} isBluetoothOn={isBluetoothOn} isBluetooth={bluetooth} isGPS={gps} isGPSOn={isGPSOn} privacy={privacy} isMusic={isMusic} isVideo = {isVideo} isPaused={isPaused} songName={songName} artistName={artistName} songThumbnail={songThumbnail}></Screen>
 
                 <div id="outer-wheel">
                     <p id="menu-btn" onClick={onClickMenuButton}>MENU</p>
-                    <i className="fas fa-fast-forward" id="next-btn" onClick = {onClickForwardButton} onMouseDown = {isMusic && setProgressForward} onMouseUp={isMusic && stopProgressForward}></i>
-                    <i className="fas fa-fast-backward" id="previous-btn" onClick={onClickBackwardButton} onMouseDown = {isMusic && setProgressBackward} onMouseUp={isMusic && stopProgressBackward}></i>
+                    <i className="fas fa-fast-forward" id="next-btn" onClick = {onClickForwardButton} onMouseDown = {(isMusic || isVideo) && setProgressForward} onMouseUp={(isMusic || isVideo) && stopProgressForward}></i>
+                    <i className="fas fa-fast-backward" id="previous-btn" onClick={onClickBackwardButton} onMouseDown = {(isMusic || isVideo) && setProgressBackward} onMouseUp={(isMusic || isVideo) && stopProgressBackward}></i>
                     <span id="play-pause-btn" onClick={onClickPlayPauseButton}>
                         <i className="fas fa-play" id="play-btn"></i>
                         <i className="fas fa-pause" id="pause-btn"></i>

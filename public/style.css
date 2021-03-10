@@ -299,8 +299,16 @@ body{
     height: 150px;
     position: relative;
 }
+
+.player .main .thumbnail video{
+    width: 100%;
+    height: 200px;
+    position: relative;
+}
+
 .player .main .seekbar {
 	margin-top: -15px;
+    margin-bottom: 5px;
 }
 
 .player .main .seekbar input[type="range"] {
