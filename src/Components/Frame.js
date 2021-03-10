@@ -17,6 +17,7 @@ import AloneThumbnail from './../AudioThumbnails/Alone.jpg';
 import BlankSpaceThumbnail from './../AudioThumbnails/BlankSpace.jpg';
 import LoveStoryThumbnail from './../AudioThumbnails/LoveStory.jpg';
 import Ocean from "./../VideoFiles/oceans.mp4";
+import WayanadGhats from './../VideoFiles/WayanadGhats.mp4';
 
 function Frame() {
 
@@ -25,7 +26,7 @@ function Frame() {
     //    *****************************************Msic Secction*********************************************
     const musicMenuItems = ["All Songs", "Artists", "Favourites"];
     const videosMenuItems = ["All Videos"];
-    const allVideoItems = ["Ocean"];
+    const allVideoItems = ["Ocean", "Wayanad Ghats"];
     const songsMenuItems = ["On My Way", "Love Story", "Alone", "Blank Space"];
     const artistMenuItems = ["Alan Walker", "Taylor Swift"]
     const alanWalkerMenuItems = ["On My Way", "Alone"];
@@ -198,9 +199,7 @@ function Frame() {
     }
 
     const onClickPlayPauseButton = () => {
-        console.log("button clicked")
         if (isMusic || currentMenu === "mainMenu") {
-            console.log("music sec")
             if(isPaused){
                 if (isPlaying === "notStarted" || isNewSong) {
                     newAudio(songURL);
@@ -215,9 +214,7 @@ function Frame() {
         }
 
         else if (isVideo){
-            console.log("vid sec")
             if(isPaused){
-                console.log("new vid")
                 if (isPlaying === "notStarted") {
                     newVideo(videoURL);
                 } else {
@@ -225,7 +222,6 @@ function Frame() {
                 }
                 setIsPaused(false);
             }else{
-                console.log("pased vid")
                 setIsPaused(true);
                 pause();}
             
@@ -270,6 +266,10 @@ function Frame() {
                         case 0:
                             setCurrentVideoDetails(Ocean)
                             break;
+
+                            case 1:
+                                setCurrentVideoDetails(WayanadGhats)
+                                break;    
 
                         default:
                             break;
@@ -457,6 +457,7 @@ function Frame() {
             if (songName !== menuItems[menuItemsIndex]) {
                 setIsNewSong(true);
                 stop();
+                setIsPaused(true);
             }
             setSongName(menuItems[menuItemsIndex]);
             setSongURL(currentSongURL);
