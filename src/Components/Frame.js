@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState } from 'react';
 import Screen from './Screen';
 import Bird from './../Wallpapers/birds/Bird1.jpeg';
 import Egypt from './../Wallpapers/buildings/egypt.jpeg';
@@ -7,7 +7,7 @@ import WhiteFlowers from './../Wallpapers/flowers/Flower1.jpeg';
 import Food from './../Wallpapers/food/food1.jpg';
 import Galaxy from './../Wallpapers/nature/Galaxy.jpg';
 import Beach from './../Wallpapers/water/Beach.jpg';
-import { newAudio, play, pause, isPlaying, stop } from "./PlayerWorking";
+import { newAudio, play, pause, isPlaying, stop, setProgressForward, stopProgressForward, playNextSong, setProgressBackward, stopProgressBackward} from "./PlayerWorking";
 import OnMyWay from './../AudioFiles/OnMyWay.mp3';
 import Alone from './../AudioFiles/Alone.mp3';
 import BlankSpace from './../AudioFiles/BlankSpace.mp3';
@@ -86,8 +86,7 @@ function Frame() {
                 setCurrentMenuItem(currentMenuItem + 1);
             }
         }
-        else if(isMusic){
-            onClickCenterButton();
+        else if(isMusic && playNextSong){
             stop();
             setIsPaused(true);
             if (currentMenuItem === currentMenuItems.length - 1){
@@ -96,6 +95,7 @@ function Frame() {
             else{
                 setCurrentMenuItem(currentMenuItem + 1);
             }
+            onClickCenterButton();
         }
     }
     
@@ -119,7 +119,7 @@ function Frame() {
                 setCurrentMenuItem(currentMenuItem - 1);
             }
         }
-        if(isMusic){
+        if(isMusic && playNextSong){
             setIsNewSong(true);
             stop();
             setCurrentMenuItem(currentMenuItem - 1);
@@ -170,6 +170,9 @@ function Frame() {
                             changeMenu("musicMenu", musicMenuItems);
                             break;
                         case 5:
+                            if(isPlaying === "notStarted"){
+                                setCurrentSongDetails(songsMenuItems, 0, OnMyWay, OnMyWayThumbnail, "Alan Walker");
+                            }
                             changeMenu("songsMenu", songsMenuItems)
                             setIsMusic(true);
                             break;    
@@ -392,8 +395,8 @@ function Frame() {
 
                 <div id="outer-wheel">
                     <p id="menu-btn" onClick={onClickMenuButton}>MENU</p>
-                    <i className="fas fa-fast-forward" id="next-btn" onClick={onClickForwardButton}></i>
-                    <i className="fas fa-fast-backward" id="previous-btn" onClick={onClickBackwardButton}></i>
+                    <i className="fas fa-fast-forward" id="next-btn" onClick = {onClickForwardButton} onMouseDown = {isMusic && setProgressForward} onMouseUp={isMusic && stopProgressForward}></i>
+                    <i className="fas fa-fast-backward" id="previous-btn" onClick={onClickBackwardButton} onMouseDown = {isMusic && setProgressBackward} onMouseUp={isMusic && stopProgressBackward}></i>
                     <span id="play-pause-btn" onClick={onClickPlayPauseButton}>
                         <i className="fas fa-play" id="play-btn"></i>
                         <i className="fas fa-pause" id="pause-btn"></i>

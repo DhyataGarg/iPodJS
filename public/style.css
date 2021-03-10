@@ -302,21 +302,16 @@ body{
 .player .main .seekbar {
 	margin-top: -15px;
 }
+
 .player .main .seekbar input[type="range"] {
 	-webkit-appearance:none;
-	width: 98%;
+	width: 0%;
 	height: 4px;
 	outline: none;
 	background: #00acee;
 	overflow: hidden;
 }
-/* .player .main .seekbar input[type="range"]::-webkit-slider-thumb {
-	-webkit-appearance:none;
-	width: 5px;
-	height: 0px;
-    right: 0px;
-	box-shadow: -300px 0px 0px 300px #00acee;
-} */
+
 .player .main .details {
 	text-align: center;
 }
