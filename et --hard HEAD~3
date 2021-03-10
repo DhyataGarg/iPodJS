@@ -1,0 +1,95 @@
+[33mcommit 1a736817b937eb0f0f5f2dd714470477152dd464[m[33m ([m[1;36mHEAD -> [m[1;32mbackend-experimental[m[33m)[m
+Author: Dhyata Garg <dhyatagarg@gmail.com>
+Date:   Wed Mar 10 22:43:44 2021 +0530
+
+    Add another video and change menu option on drag over wheel.
+
+[33mcommit acaa46cb4488f8ef9a98c644c08a47c1284da3cc[m
+Author: Dhyata Garg <dhyatagarg@gmail.com>
+Date:   Wed Mar 10 21:00:12 2021 +0530
+
+    Add another video and change menu option on drag over wheel.
+
+[33mcommit 4c6b8fc33cca95ae2c8b8b4bf1baaca3ca4d8bb1[m
+Author: Dhyata Garg <dhyatagarg@gmail.com>
+Date:   Wed Mar 10 18:44:17 2021 +0530
+
+    Add another video and change menu option on drag over wheel.
+
+[33mcommit e204d6a34891117b5bc0ab217aa74ae714856357[m[33m ([m[1;31morigin/backend-experimental[m[33m)[m
+Author: Dhyata Garg <dhyatagarg@gmail.com>
+Date:   Wed Mar 10 16:15:37 2021 +0530
+
+    Add a video.
+
+[33mcommit 0dc24e6ca866507c1336484f08c9a5a87cb1e451[m
+Author: Dhyata Garg <dhyatagarg@gmail.com>
+Date:   Wed Mar 10 11:30:19 2021 +0530
+
+    Fast forward and rewind songs on long press of next and previous buttons.
+
+[33mcommit 1cd01cac7e8c2697729ec494c9ba6a4d7e82d360[m
+Author: Dhyata Garg <dhyatagarg@gmail.com>
+Date:   Tue Mar 9 15:07:08 2021 +0530
+
+    Play next and previous song with forward and backward buttons respectively.
+
+[33mcommit d3dbbcd101ff46331d2866341c84edbbfd70b4bd[m
+Author: Dhyata Garg <dhyatagarg@gmail.com>
+Date:   Tue Mar 9 01:32:51 2021 +0530
+
+    Optimize Code.
+
+[33mcommit a214c40b90c9232f468a1a3c0d4f163c9218d143[m
+Author: Dhyata Garg <dhyatagarg@gmail.com>
+Date:   Mon Mar 8 19:30:36 2021 +0530
+
+    Add two more songs in Artist Section
+
+[33mcommit 0d19bd593583e0f42d21d0e40edac8fe76c06428[m
+Author: Dhyata Garg <dhyatagarg@gmail.com>
+Date:   Mon Mar 8 13:56:41 2021 +0530
+
+    Play a song (Music/Artist/Alan Walker/On My Way) with play and pause buttons
+
+[33mcommit ae4aea2b12aceae96af83b57515b58b22b97f9ae[m
+Author: Dhyata Garg <dhyatagarg@gmail.com>
+Date:   Sat Mar 6 21:55:48 2021 +0530
+
+    Complete settings section
+
+[33mcommit 00ca34ae008bc6b9f92fe665da7558e43ddf3fdd[m
+Author: Dhyata Garg <dhyatagarg@gmail.com>
+Date:   Sat Mar 6 12:48:43 2021 +0530
+
+    Add set wallpaper and brightness functionality
+
+[33mcommit e0923c656f11a182dd54b38f92a9655c050f687f[m
+Author: Dhyata Garg <dhyatagarg@gmail.com>
+Date:   Fri Mar 5 22:11:58 2021 +0530
+
+    Add Music and Settings menu, change color of main frame and add functionality to center and MENU buttons.
+
+[33mcommit 7eaca2fe8a2c58f226aa7023b649ab67617a5d3b[m
+Author: Dhyata Garg <dhyatagarg@gmail.com>
+Date:   Fri Mar 5 14:38:43 2021 +0530
+
+    Add functioning to forward and backward buttons
+
+[33mcommit 93c41690fdc95d5be54a839bc06a3fdbea8c6151[m[33m ([m[1;31morigin/main[m[33m, [m[1;32mmain[m[33m)[m
+Author: Dhyata Garg <dhyatagarg@gmail.com>
+Date:   Fri Mar 5 09:15:53 2021 +0530
+
+    Add reflection, screen-glass and some other minute changes
+
+[33mcommit 301bf992c4cb2d72a976b51643e5dc5b28fbac83[m
+Author: Dhyata Garg <dhyatagarg@gmail.com>
+Date:   Fri Mar 5 00:12:03 2021 +0530
+
+    Initial layout
+
+[33mcommit dfcbe1b0b8f030ddb0306d05573669377a133c16[m
+Author: Dhyata Garg <dhyatagarg@gmail.com>
+Date:   Wed Mar 3 22:27:47 2021 +0530
+
+    Initialize project using Create React App

@@ -42,7 +42,6 @@ function Frame() {
     const [songThumbnail, setSongThumbnail] = useState("");
 
     const [isVideo, setIsVideo] = useState(false);
-    const [isNewVideo, setIsNewVideo] = useState(false);
     const [videoURL, setVideoURL] = useState("")
 
     // *************************************WallPapers Section*************************************************
@@ -70,7 +69,55 @@ function Frame() {
 
     const [isFullScreen, setIsFullScreen] = useState(false);
 
+        // These 2 variables are for tracking the direction of mouse move on our wheel, if the user is moving upwards or downwards
+        const [isMoving, setMoving] = useState(false);
+        var wheelMoveDirection;
+        var clientY;
+    
+    // ------------------------- Handling of Mouse Events and Changing Direction Section -------------------//
+    
+        // This is the mousedown event.
+        // Basically when the use press on the mouse button and move the mouse on the wheel while holding the mouse we should change the options
+        function mouseDown(e){
+            // Here we changing isMoving from false to true, and depicting that now we are moving the mouse over the wheel
+            setMoving(true);
+        }
+        function mouseMove(e){
+            // This event works only when it see that user has a hold on mouse click button
+            if(isMoving){
+                // If user is starting to move the mouse its initial position would be captured for the first time
+                if(clientY === undefined){
+                    clientY = e.clientY;
+                }
+                // Now after that after a regular interval of 13px of movement we changes the selected option
+                // And now if the Y-Coordinate is increasing, then we are going downwards
+                if(e.clientY-clientY > 13){
+                    wheelMoveDirection = "down";
+                    clientY = e.clientY;
+                    changeCurrentMenuOption();
+                // If Y-Coordinate is decreasing then mouse is moving up
+                }else if(clientY-e.clientY > 13){
+                    wheelMoveDirection = "up";
+                    clientY = e.clientY;
+                    changeCurrentMenuOption();
+                }
+            }
+        }
+        // Now this event is handling when the user leaves the click, and now isMoving should become false as now user have stopped changing the options
+        function mouseUp(e){
+            // Here we change isMoving to false and also changes Y-Coordinate to undefined so that next time when we start moving again it would be initialized from the position from where user has started this time
+            setMoving(false);
+            clientY = undefined;
+        }
+    
 
+        const changeCurrentMenuOption = () => {
+            if(wheelMoveDirection === "down"){
+                setCurrentMenuItem(currentMenuItem + 1)
+            }else{
+                setCurrentMenuItem(currentMenuItem - 1)
+            }
+        }
 
     const onClickForwardButton = () => { 
         if (brightness) {
@@ -182,7 +229,6 @@ function Frame() {
                 setIsPaused(true);
                 pause();}
             
-            setIsNewVideo(false)
         }
     }
 
@@ -448,7 +494,7 @@ function Frame() {
             <div className="frame">
                 <Screen currentMenu={currentMenu} currentMenuItems={currentMenuItems} currentMenuItem={currentMenuItem} currentWallpaper={currentWallpaper} isFullScreen={isFullScreen} brightness={brightness} brightnessValue={brightnessValue} isWiFi={wifi} isWifiOn={isWifiOn} isBluetoothOn={isBluetoothOn} isBluetooth={bluetooth} isGPS={gps} isGPSOn={isGPSOn} privacy={privacy} isMusic={isMusic} isVideo = {isVideo} isPaused={isPaused} songName={songName} artistName={artistName} songThumbnail={songThumbnail}></Screen>
 
-                <div id="outer-wheel">
+                <div id="outer-wheel" onMouseDown={mouseDown} onMouseMove={mouseMove} onMouseUp={mouseUp}>
                     <p id="menu-btn" onClick={onClickMenuButton}>MENU</p>
                     <i className="fas fa-fast-forward" id="next-btn" onClick = {onClickForwardButton} onMouseDown = {(isMusic || isVideo) && setProgressForward} onMouseUp={(isMusic || isVideo) && stopProgressForward}></i>
                     <i className="fas fa-fast-backward" id="previous-btn" onClick={onClickBackwardButton} onMouseDown = {(isMusic || isVideo) && setProgressBackward} onMouseUp={(isMusic || isVideo) && stopProgressBackward}></i>
