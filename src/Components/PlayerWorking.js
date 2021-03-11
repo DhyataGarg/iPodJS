@@ -65,8 +65,8 @@ function stop() {
     // Now our work is to pause the song and then set the Current Time of the song to 00:00 second. This task would act like that we have stopped the current song.
     if (isPlaying !== "notStarted") {
         clearInterval(interval)
-        media.pause();
-        media.currentTime = 0;
+        try{media.pause();
+        media.currentTime = 0;}catch(err){}
     }
 
     isPlaying = 'notStarted';
