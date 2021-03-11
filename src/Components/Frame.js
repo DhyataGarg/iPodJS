@@ -1,40 +1,39 @@
 import React, { useState } from 'react';
 import Screen from './Screen';
-import Bird from './../Wallpapers/birds/Bird1.jpeg';
-import Egypt from './../Wallpapers/buildings/egypt.jpeg';
-import PurpleFlowers from './../Wallpapers/flowers/PurpleFlowers.jpeg';
-import WhiteFlowers from './../Wallpapers/flowers/Flower1.jpeg';
-import Food from './../Wallpapers/food/food1.jpg';
-import Galaxy from './../Wallpapers/nature/Galaxy.jpg';
-import Beach from './../Wallpapers/water/Beach.jpg';
 import { newVideo, newAudio, play, pause, isPlaying, stop, setProgressForward, stopProgressForward, playNextSong, setProgressBackward, stopProgressBackward } from "./PlayerWorking";
-import OnMyWay from './../AudioFiles/OnMyWay.mp3';
-import Alone from './../AudioFiles/Alone.mp3';
-import BlankSpace from './../AudioFiles/BlankSpace.mp3';
-import LoveStory from './../AudioFiles/LoveStory.mp3';
-import OnMyWayThumbnail from './../AudioThumbnails/OnMyWay.jpg';
-import AloneThumbnail from './../AudioThumbnails/Alone.jpg';
-import BlankSpaceThumbnail from './../AudioThumbnails/BlankSpace.jpg';
-import LoveStoryThumbnail from './../AudioThumbnails/LoveStory.jpg';
-import Ocean from "./../VideoFiles/oceans.mp4";
-import WayanadGhats from './../VideoFiles/WayanadGhats.mp4';
-import London from './../Photos/London.jpg';
-import Party from './../Photos/Party.jpg';
-import Roads from './../Photos/Roads.jpg';
-import Sunset from './../Photos/Sunset.jpg';
-import Family from './../Photos/Family.jpg';
-import Travel from './../Photos/Travel.jpg';
 
+import City from './../assets/Wallpapers/City.jpg';
+import Bird from './../assets/Wallpapers/Bird.jpeg';
+import Flowers from './../assets/Wallpapers/Flower.jpeg';
+import Food from './../assets/Wallpapers/Food.jpg';
+import Beach from './../assets/Wallpapers/Beach.jpg';
+import Mountain from './../assets/Wallpapers/Mountain.jpg';
+import Valley from './../assets/Wallpapers/Valley.jpg';
+import OnMyWay from './../assets/AudioFiles/OnMyWay.mp3';
+import Alone from './../assets/AudioFiles/Alone.mp3';
+import BlankSpace from './../assets/AudioFiles/BlankSpace.mp3';
+import LoveStory from './../assets/AudioFiles/LoveStory.mp3';
+import OnMyWayThumbnail from './../assets/AudioThumbnails/OnMyWay.jpg';
+import AloneThumbnail from './../assets/AudioThumbnails/Alone.jpg';
+import BlankSpaceThumbnail from './../assets/AudioThumbnails/BlankSpace.jpg';
+import LoveStoryThumbnail from './../assets/AudioThumbnails/LoveStory.jpg';
+import Ocean from "./../assets/VideoFiles/oceans.mp4";
+import WayanadGhats from './../assets/VideoFiles/WayanadGhats.mp4';
+import London from './../assets/Photos/London.jpg';
+import Party from './../assets/Photos/Party.jpg';
+import Roads from './../assets/Photos/Roads.jpg';
+import Sunset from './../assets/Photos/Sunset.jpg';
+import Family from './../assets/Photos/Family.jpg';
+import Travel from './../assets/Photos/Travel.jpg';
 
 function Frame() {
-
+    const videosToApply = [Ocean, WayanadGhats]
     const mainMenuItems = ["Cover Flow", "Music", "Videos", "Photos", "Now Playing", "Games", "Settings"];
     const settingMenuItems = ["Set Wallpaper", "Brightness", "WiFi", "Bluetooth", "Privacy", "GPS"];
     const photosMenuItems = [London, Party, Roads, Sunset, Family, Travel]
     //    *****************************************Msic Secction*********************************************
     const musicMenuItems = ["All Songs", "Artists"];
-    const videosMenuItems = ["All Videos"];
-    const allVideoItems = ["Ocean", "Wayanad Ghats"];
+    const videosMenuItems = ["Ocean", "Wayand Ghats"];
     const songsMenuItems = ["On My Way", "Love Story", "Alone", "Blank Space"];
     const artistMenuItems = ["Alan Walker", "Taylor Swift"]
     const alanWalkerMenuItems = ["On My Way", "Alone"];
@@ -54,13 +53,8 @@ function Frame() {
     const [videoURL, setVideoURL] = useState("")
 
     // *************************************WallPapers Section*************************************************
-    const wallpaperMenuItems = ["Birds", "Buildings", "Flowers", "Food", "Nature", "Beach"];
-    const birdsMenuItems = ["Tree Bird"];
-    const buildingsMenuItems = ["Pyramid"];
-    const flowersMenuItems = ["White Flowers", "Purple Flowers"];
-    const foodMenuItems = ["Food"];
-    const natureMenuItems = ["Galaxy"];
-    const beachMenuItems = ["Beach"];
+    const wallpaperMenuItems = ["Birds", "Flowers", "City", "Food", "Beach", "Valley", "Mountains"];
+    const wallpapersToApply = [Bird, Flowers, City, Food, Beach, Valley, Mountain];
     const [currentWallpaper, setCurrentWallpaper] = useState(Bird);
     const [brightness, setBrightness] = useState(false);
     const [brightnessValue, setBrightnessValue] = useState(20);
@@ -70,16 +64,22 @@ function Frame() {
 
     const [bluetooth, setBluetooth] = useState(false);
     const [isBluetoothOn, setIsBluetoothOn] = useState(false);
+    const alanWalkerMenuItemDetails = [[OnMyWay, OnMyWayThumbnail, "Alan Walker"], [Alone, AloneThumbnail, "Alan Walker"]]
 
     const [gps, setGPS] = useState(false);
     const [isGPSOn, setIsGPSOn] = useState(false);
+    const songMenuItemDetails = [[OnMyWay, OnMyWayThumbnail, "Alan Walker"], [LoveStory, LoveStoryThumbnail, "Taylor Swift"], [Alone, AloneThumbnail, "Alan Walker"], [BlankSpace, BlankSpaceThumbnail, "Taylor Swift"]]
+    const taylorSwiftMenuItemsDetails = [[BlankSpace, BlankSpaceThumbnail, "Taylor Swift"], [LoveStory, LoveStoryThumbnail, "Taylor Swift"]]
 
     const [privacy, setPrivacy] = useState(false);
+    const changeMenuDetails = [[], ["musicMenu", musicMenuItems], ["videosMenu", videosMenuItems], [], [], [], ["settingMenu", settingMenuItems]]
+    const changeMusicMenuItems = [["songsMenu", songsMenuItems], ["artistMenu", artistMenuItems]]
+    const changeArtistMneuItems = [["alanWalkerMenu", alanWalkerMenuItems], ["taylorSwiftMenu", taylorSwiftMenuItems]]
 
     const [isFullScreen, setIsFullScreen] = useState(false);
     const [games, setGames] = useState(false);
     const [isPhotos, setPhotos] = useState(false);
-
+    const settingsToApply = [[], [setBrightness, "brightnessMenu"], [setWIFI, "wifiMenu"], [setBluetooth, "bluetoothMenu"], [setPrivacy, "privacyMenu"], [setGPS, "gpsMenu"]]
     // These 2 variables are for tracking the direction of mouse move on our wheel, if the user is moving upwards or downwards
     const [isMoving, setMoving] = useState(false);
     var wheelMoveDirection;
@@ -142,25 +142,13 @@ function Frame() {
         if (brightness) {
             setBrightnessValue(brightnessValue - 10);
         }
-        else if (wifi) {
-            setIsWifiOn(true);
-        }
-        else if (bluetooth) {
-            setIsBluetoothOn(true);
-        }
-        else if (gps) {
-            setIsGPSOn(true);
-        }
+
         else if (!isFullScreen && !isMusic) {
-            if (currentMenuItem === currentMenuItems.length - 1) {
-                setCurrentMenuItem(0);
-            } else {
-                setCurrentMenuItem(currentMenuItem + 1);
-            }
+            wheelMoveDirection = "down";
+            changeCurrentMenuOption();
         }
         else if (isMusic && playNextSong) {
             stop();
-            // setIsPaused(true);
             if (currentMenuItem === currentMenuItems.length - 1) {
                 setCurrentMenuItem(0);
             }
@@ -175,21 +163,9 @@ function Frame() {
         if (brightness) {
             setBrightnessValue(brightnessValue + 10);
         }
-        else if (wifi) {
-            setIsWifiOn(false);
-        }
-        else if (bluetooth) {
-            setIsBluetoothOn(false);
-        }
-        else if (gps) {
-            setIsGPSOn(false);
-        }
         else if (!isFullScreen && !isMusic) {
-            if (currentMenuItem === 0) {
-                setCurrentMenuItem(currentMenuItems.length - 1);
-            } else {
-                setCurrentMenuItem(currentMenuItem - 1);
-            }
+            wheelMoveDirection = "up";
+            changeCurrentMenuOption();
         }
         if (isMusic && playNextSong) {
             setIsPaused(true)
@@ -205,7 +181,7 @@ function Frame() {
     }
 
     const onClickMenuButton = () => {
-        if ((!isFullScreen || privacy || isPhotos) && !bluetooth && !wifi && !gps && !brightness) {
+        if ((!isFullScreen || isPhotos) && !bluetooth && !wifi && !gps && !brightness && !privacy) {
             setCurrentMenu("mainMenu");
             setCurrentMenuItems(mainMenuItems);
             setCurrentMenuItem(0);
@@ -250,6 +226,22 @@ function Frame() {
             }
 
         }
+
+        else if (wifi) {
+            if (isWifiOn) {
+                setIsWifiOn(false)
+            } else { setIsWifiOn(true) }
+        }
+        else if (bluetooth) {
+            if (isBluetoothOn) {
+                setIsBluetoothOn(false)
+            } else { setIsBluetoothOn(true) }
+        }
+        else if (gps) {
+            if (isGPSOn) {
+                setIsGPSOn(false)
+            } else { setIsGPSOn(true) }
+        }
     }
 
     const onClickCenterButton = () => {
@@ -261,19 +253,16 @@ function Frame() {
                             setIsFullScreen(true);
                             break;
                         case 1:
-                            changeMenu("musicMenu", musicMenuItems);
-                            break;
                         case 2:
-                            changeMenu("videosMenu", videosMenuItems);
+                        case 6:
+                            changeMenu(changeMenuDetails[currentMenuItem][0], changeMenuDetails[currentMenuItem][1]);
                             break;
 
-                        case 3 :
+                        case 3:
                             changeMenu("photosMenu", photosMenuItems);
-                            console.log("change pic menu");
-                            openDeviceSettings(setPhotos, "photosMenu")
-                            setIsFullScreen(true)
-                            console.log("in photos menu")
-                            break;    
+                            openDeviceSettings(setPhotos, "photosMenu");
+                            setIsFullScreen(true);
+                            break;
 
                         case 4:
                             if (isPlaying === "notStarted") {
@@ -282,201 +271,55 @@ function Frame() {
                             changeMenu("songsMenu", songsMenuItems)
                             setIsMusic(true);
                             break;
+
                         case 5:
                             openDeviceSettings(setGames, "gamesMenu")
                             break;
-                        case 6:
-                            changeMenu("settingMenu", settingMenuItems);
-                            break;
                         default:
                             break;
                     };
                     break;
 
-                    case "photosMenu":
-                        
-                        break;
-
                 case "videosMenu":
-                    changeMenu("allVideosMenu", allVideoItems)
-                    break;
-
-                case "allVideosMenu":
-                    switch (currentMenuItem) {
-                        case 0:
-                            setCurrentVideoDetails(Ocean)
-                            break;
-
-                        case 1:
-                            setCurrentVideoDetails(WayanadGhats)
-                            break;
-
-                        default:
-                            break;
-                    }
+                    setCurrentVideoDetails(videosToApply[currentMenuItem])
                     break;
 
                 case "settingMenu":
-                    switch (currentMenuItem) {
-                        case 0:
-                            changeMenu("wallpaperMenu", wallpaperMenuItems);
-                            break;
-                        case 1:
-                            openDeviceSettings(setBrightness, "brightnessMenu");
-                            break;
-                        case 2:
-                            openDeviceSettings(setWIFI, "wifiMenu");
-                            break;
-                        case 3:
-                            openDeviceSettings(setBluetooth, "bluetoothMenu");
-                            break;
-                        case 4:
-                            openDeviceSettings(setPrivacy, "privacyMenu");
-                            break;
-                        case 5:
-                            openDeviceSettings(setGPS, "gpsMenu");
-                            break;
-                        default:
-                            break;
-                    };
+                    if (currentMenuItem === 0) {
+                        changeMenu("wallpaperMenu", wallpaperMenuItems);
+                    }
+                    else {
+                        openDeviceSettings(settingsToApply[currentMenuItem][0], settingsToApply[currentMenuItem][1])
+                    }
                     break;
 
                 case "gpsMenu":
-                    setDeviceSettings(setGPS);
-                    onClickMenuButton();
-                    break;
-
                 case "bluetoothMenu":
-                    setDeviceSettings(setBluetooth);
-                    onClickMenuButton();
-                    break;
-
                 case "wifiMenu":
-                    setDeviceSettings(setWIFI);
-                    onClickMenuButton();
-                    break;
-
                 case "privacyMenu":
-                    setDeviceSettings(setPrivacy);
-                    onClickMenuButton();
-                    break;
-
                 case "brightnessMenu":
-                    setDeviceSettings(setBrightness);
+                    setDeviceSettings(settingsToApply[currentMenuItem][0]);
                     onClickMenuButton();
                     break;
 
                 case "musicMenu":
-                    if (currentMenuItem === 0) {
-                        changeMenu("songsMenu", songsMenuItems)
-                    }
-                    else if (currentMenuItem === 1) {
-                        changeMenu("artistMenu", artistMenuItems)
-                    }
+                    changeMenu(changeMusicMenuItems[currentMenuItem][0], changeMusicMenuItems[currentMenuItem][1])
                     break;
-
                 case "songsMenu":
-                    switch (currentMenuItem) {
-                        case 0:
-                            setCurrentSongDetails(songsMenuItems, 0, OnMyWay, OnMyWayThumbnail, "Alan Walker");
-                            break;
-                        case 1:
-                            setCurrentSongDetails(songsMenuItems, 1, LoveStory, LoveStoryThumbnail, "Taylor Swift");
-                            break;
-                        case 2:
-                            setCurrentSongDetails(songsMenuItems, 2, Alone, AloneThumbnail, "Alan Walker")
-                            break;
-                        case 3:
-                            setCurrentSongDetails(songsMenuItems, 3, BlankSpace, BlankSpaceThumbnail, "Taylor Swift")
-                            break;
-                        default:
-                            break;
-                    }
+                    setCurrentSongDetails(songsMenuItems, currentMenuItem, songMenuItemDetails[currentMenuItem]);
                     break;
 
                 case "artistMenu":
-                    switch (currentMenuItem) {
-                        case 0:
-                            changeMenu("alanWalkerMenu", alanWalkerMenuItems);
-                            break;
-                        case 1:
-                            changeMenu("taylorSwiftMenu", taylorSwiftMenuItems);
-                            break;
-                        default:
-                            break;
-                    };
+                    changeMenu(changeArtistMneuItems[currentMenuItem][0], changeArtistMneuItems[currentMenuItem][1]);
                     break;
-
                 case "alanWalkerMenu":
-                    if (currentMenuItem === 0) {
-                        setCurrentSongDetails(alanWalkerMenuItems, 0, OnMyWay, OnMyWayThumbnail, "Alan Walker")
-                    }
-                    else if (currentMenuItem === 1) {
-                        setCurrentSongDetails(alanWalkerMenuItems, 1, Alone, AloneThumbnail, "Alan Walker")
-                    };
+                    setCurrentSongDetails(alanWalkerMenuItems, currentMenuItem, alanWalkerMenuItemDetails[currentMenuItem]);
                     break;
-
-
                 case "taylorSwiftMenu":
-                    if (currentMenuItem === 0) {
-                        setCurrentSongDetails(taylorSwiftMenuItems, 0, BlankSpace, BlankSpaceThumbnail, "Taylor Swift")
-                    }
-                    else if (currentMenuItem === 1) {
-                        setCurrentSongDetails(taylorSwiftMenuItems, 1, LoveStory, LoveStoryThumbnail, "Taylor Swift")
-                    };
+                    setCurrentSongDetails(taylorSwiftMenuItems, 0, taylorSwiftMenuItemsDetails)
                     break;
-
-
                 case "wallpaperMenu":
-                    switch (currentMenuItem) {
-                        case 0:
-                            changeMenu("birdsMenu", birdsMenuItems);
-                            break;
-                        case 1:
-                            changeMenu("buildingsMenu", buildingsMenuItems);
-                            break;
-                        case 2:
-                            changeMenu("flowersMenu", flowersMenuItems);
-                            break;
-                        case 3:
-                            changeMenu("foodMenu", foodMenuItems);
-                            break;
-                        case 4:
-                            changeMenu("natureMenu", natureMenuItems);
-                            break;
-                        case 5:
-                            changeMenu("beachMenu", beachMenuItems);
-                            break;
-                        default:
-                            break;
-                    }
-                    break;
-
-                case "birdsMenu":
-                    setSelectedWallpaper(Bird)
-                    break;
-
-                case "buildingsMenu":
-                    setSelectedWallpaper(Egypt)
-                    break;
-
-                case "flowersMenu":
-                    if (currentMenuItem === 0) {
-                        setSelectedWallpaper(WhiteFlowers)
-                    }
-                    else if (currentMenuItem === 1) {
-                        setSelectedWallpaper(PurpleFlowers)
-                    }
-                    break;
-
-                case "foodMenu":
-                    setSelectedWallpaper(Food);
-                    break;
-                case "natureMenu":
-                    setSelectedWallpaper(Galaxy)
-                    break;
-                case "beachMenu":
-                    setSelectedWallpaper(Beach)
+                    setSelectedWallpaper(wallpapersToApply[currentMenuItem])
                     break;
                 default:
                     break;
@@ -493,17 +336,17 @@ function Frame() {
         setVideoURL(currentVideoURL);
     }
 
-    const setCurrentSongDetails = (menuItems, menuItemsIndex, currentSongURL, currentSongThumbnail, curretArtistName) => {
+    const setCurrentSongDetails = (menuItems, menuItemsIndex, songDetails) => {
         if (songName !== menuItems[menuItemsIndex]) {
             setIsNewSong(true);
             stop();
             setIsPaused(true);
         }
         setSongName(menuItems[menuItemsIndex]);
-        setSongURL(currentSongURL);
-        setSongThumbnail(currentSongThumbnail);
+        setSongURL(songDetails[0]);
+        setSongThumbnail(songDetails[1]);
         setIsMusic(true);
-        setArtistName(curretArtistName)
+        setArtistName(songDetails[2]);
     }
 
     const setSelectedWallpaper = (wallpaperName) => {
@@ -532,9 +375,8 @@ function Frame() {
     }
 
     return (
-
         <div className="frame">
-            <Screen currentMenu={currentMenu} currentMenuItems={currentMenuItems} currentMenuItem={currentMenuItem} currentWallpaper={currentWallpaper} isFullScreen={isFullScreen} brightness={brightness} brightnessValue={brightnessValue} isWiFi={wifi} isWifiOn={isWifiOn} isBluetoothOn={isBluetoothOn} isBluetooth={bluetooth} isGPS={gps} isGPSOn={isGPSOn} privacy={privacy} isMusic={isMusic} isVideo={isVideo} isPaused={isPaused} songName={songName} artistName={artistName} songThumbnail={songThumbnail} games={games} photos = {isPhotos}></Screen>
+            <Screen currentMenu={currentMenu} currentMenuItems={currentMenuItems} currentMenuItem={currentMenuItem} currentWallpaper={currentWallpaper} isFullScreen={isFullScreen} brightness={brightness} brightnessValue={brightnessValue} isWiFi={wifi} isWifiOn={isWifiOn} isBluetoothOn={isBluetoothOn} isBluetooth={bluetooth} isGPS={gps} isGPSOn={isGPSOn} privacy={privacy} isMusic={isMusic} isVideo={isVideo} isPaused={isPaused} songName={songName} artistName={artistName} songThumbnail={songThumbnail} games={games} photos={isPhotos}></Screen>
 
             <div id="outer-wheel" onMouseDown={mouseDown} onMouseMove={mouseMove} onMouseUp={mouseUp}>
                 <p id="menu-btn" onClick={onClickMenuButton}>MENU</p>

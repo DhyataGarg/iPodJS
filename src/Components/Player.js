@@ -1,33 +1,32 @@
 import React from 'react';
 
 function Player(props) {
-    // const audio = document.getElementById("audio");
-
     return (
         <div class="player">
             <div class="main">
 
-            {props.mediaType === "Music" && <React.Fragment><div className="thumbnail">
+                {props.mediaType === "Music" && <React.Fragment><div className="thumbnail">
                     <img src={props.songThumbnail} alt="img" /></div>
-                <div class="seekbar">
-                    <input type="range" id="progress-bar" value="100" />
-                </div>
-                <div class="details">
-                    <h2>{props.songName}</h2>
-                    <p>{props.artistName}</p>
-                </div></React.Fragment>
+                    <div class="seekbar">
+                        <input type="range" id="progress-bar" value="100" />
+                    </div>
+                    <div class="details">
+                        <h2>{props.songName}</h2>
+                        <p>{props.artistName}</p>
+                    </div></React.Fragment>
                 }
 
-                {props.mediaType === "Video" && 
-                <React.Fragment>
-                <div className = "thumbnail">
-                    <video id="video"></video>
-                </div>
-                <div class="seekbar">
-                    <input type="range" id="progress-bar" value="100" />
-                </div>
-                </React.Fragment>
+                {props.mediaType === "Video" &&
+                    <React.Fragment>
+                        <div className="thumbnail">
+                            <video id="video"></video>
+                        </div>
+                        <div class="seekbar">
+                            <input type="range" id="progress-bar" value="100" />
+                        </div>
+                    </React.Fragment>
                 }
+
                 <div class="controls">
                     <div class="prev-control">
                         <i class="fa fa-backward"></i>

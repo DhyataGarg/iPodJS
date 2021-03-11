@@ -65,8 +65,10 @@ function stop() {
     // Now our work is to pause the song and then set the Current Time of the song to 00:00 second. This task would act like that we have stopped the current song.
     if (isPlaying !== "notStarted") {
         clearInterval(interval)
-        try{media.pause();
-        media.currentTime = 0;}catch(err){}
+        try {
+            media.pause();
+            media.currentTime = 0;
+        } catch (err) { }
     }
 
     isPlaying = 'notStarted';
@@ -80,7 +82,7 @@ function setProgressForward() {
     setTimeout(function () {
         try {
             currentTimeAccurate += 30.0;
-            media.currentTime += 30.0; 
+            media.currentTime += 30.0;
             document.getElementById("progress-bar").style.width = `${(currentTimeAccurate / duration) * 100}%`;
         }
         catch (err) { }

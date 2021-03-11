@@ -1,11 +1,21 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Toggle from './Toggle';
-import Lock from './../GifFiles/Lock.gif';
-import Dice from './../GifFiles/dice.gif';
+import Lock from './../assets/GifFiles/Lock.gif';
+import Dice from './../assets/GifFiles/dice.gif';
 import Player from './Player';
 
+
 function Screen(props) {
+    const [time, setTime] = useState(new Date().toLocaleTimeString('it-IT'));
+
     const currentMenuItems = props.currentMenuItems;
+    useEffect(() => {
+        const interval = setInterval(() => setTime(new Date().toLocaleTimeString('it-IT')), 1000);
+        return () => {
+            clearInterval(interval);
+        };
+    }, []);
+
     return (
         <React.Fragment>
             <div id="screen">
@@ -21,14 +31,15 @@ function Screen(props) {
                 {props.isVideo && <div id="song-view"><Player isPaused={props.isPaused} mediaType={"Video"}></Player></div>}
 
                 {(!props.isFullScreen && !props.isMusic && !props.isVideo) &&
-                    <React.Fragment><div id="upper-nav">
-                        <p className="menu-items" id="nav-heading"><b>iPod</b></p>
-                        <p>{new Date().toLocaleTimeString([], { hour: '2-digit', minute: "2-digit", hour12: false })}</p>
-                        {props.isWifiOn && <i class="fas fa-wifi"></i>}
-                        {props.isBluetoothOn && <i class="fab fa-bluetooth-b"></i>}
-                        {props.isGPSOn && <i class="fas fa-map-marker-alt"></i>}
-                        <i className="fas fa-battery-full"></i>
-                    </div>
+                    <React.Fragment>
+                        <div id="upper-nav">
+                            <p className="menu-items" id="nav-heading"><b>iPod</b></p>
+                            <p>{time}</p>
+                            {props.isWifiOn && <i class="fas fa-wifi"></i>}
+                            {props.isBluetoothOn && <i class="fab fa-bluetooth-b"></i>}
+                            {props.isGPSOn && <i class="fas fa-map-marker-alt"></i>}
+                            <i className="fas fa-battery-full"></i>
+                        </div>
                         <div id="menu-bar">
 
                             <hr width="100%" />
