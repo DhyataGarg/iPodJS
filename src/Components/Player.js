@@ -2,15 +2,15 @@ import React from 'react';
 
 function Player(props) {
     return (
-        <div class="player">
-            <div class="main">
+        <div className="player">
+            <div className="main">
 
                 {props.mediaType === "Music" && <React.Fragment><div className="thumbnail">
                     <img src={props.songThumbnail} alt="img" /></div>
-                    <div class="seekbar">
+                    <div className="seekbar">
                         <input type="range" id="progress-bar" value="100" />
                     </div>
-                    <div class="details">
+                    <div className="details">
                         <h2>{props.songName}</h2>
                         <p>{props.artistName}</p>
                     </div></React.Fragment>
@@ -21,22 +21,22 @@ function Player(props) {
                         <div className="thumbnail">
                             <video id="video"></video>
                         </div>
-                        <div class="seekbar">
+                        <div className="seekbar">
                             <input type="range" id="progress-bar" value="100" />
                         </div>
                     </React.Fragment>
                 }
 
-                <div class="controls">
-                    <div class="prev-control">
-                        <i class="fa fa-backward"></i>
+                <div className="controls">
+                    <div className="prev-control">
+                        <i className="fa fa-backward"></i>
                     </div>
-                    <div class={props.isPaused ? "play-pause-control paused" : "play-pause-control"} >
-                        <i class="fa fa-play"></i>
-                        <i class="fa fa-pause"></i>
+                    <div className={props.isPaused ? "play-pause-control paused" : "play-pause-control"} >
+                        <i className="fa fa-play"></i>
+                        <i className="fa fa-pause"></i>
                     </div>
-                    <div class="next-control">
-                        <i class="fa fa-forward"></i>
+                    <div className="next-control">
+                        <i className="fa fa-forward"></i>
                     </div>
                 </div>
             </div>
