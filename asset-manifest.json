@@ -1,0 +1,36 @@
+{
+  "files": {
+    "main.js": "/iPodJS/static/js/main.0914c64c.chunk.js",
+    "main.js.map": "/iPodJS/static/js/main.0914c64c.chunk.js.map",
+    "runtime-main.js": "/iPodJS/static/js/runtime-main.6b425162.js",
+    "runtime-main.js.map": "/iPodJS/static/js/runtime-main.6b425162.js.map",
+    "static/js/2.92d514e3.chunk.js": "/iPodJS/static/js/2.92d514e3.chunk.js",
+    "static/js/2.92d514e3.chunk.js.map": "/iPodJS/static/js/2.92d514e3.chunk.js.map",
+    "index.html": "/iPodJS/index.html",
+    "static/js/2.92d514e3.chunk.js.LICENSE.txt": "/iPodJS/static/js/2.92d514e3.chunk.js.LICENSE.txt",
+    "static/media/Alone.51d6e63d.jpg": "/iPodJS/static/media/Alone.51d6e63d.jpg",
+    "static/media/Alone.7abb2c75.mp3": "/iPodJS/static/media/Alone.7abb2c75.mp3",
+    "static/media/Beach.0871b01e.jpg": "/iPodJS/static/media/Beach.0871b01e.jpg",
+    "static/media/Bird.49e6b428.jpeg": "/iPodJS/static/media/Bird.49e6b428.jpeg",
+    "static/media/BlankSpace.13957642.mp3": "/iPodJS/static/media/BlankSpace.13957642.mp3",
+    "static/media/BlankSpace.9599135e.jpg": "/iPodJS/static/media/BlankSpace.9599135e.jpg",
+    "static/media/City.ecf18566.jpg": "/iPodJS/static/media/City.ecf18566.jpg",
+    "static/media/Flower.6a65a71b.jpeg": "/iPodJS/static/media/Flower.6a65a71b.jpeg",
+    "static/media/Food.65c9a306.jpg": "/iPodJS/static/media/Food.65c9a306.jpg",
+    "static/media/Lock.3e392b84.gif": "/iPodJS/static/media/Lock.3e392b84.gif",
+    "static/media/LoveStory.4352881d.mp3": "/iPodJS/static/media/LoveStory.4352881d.mp3",
+    "static/media/LoveStory.d01ce4a2.jpg": "/iPodJS/static/media/LoveStory.d01ce4a2.jpg",
+    "static/media/Mountain.f17757f8.jpg": "/iPodJS/static/media/Mountain.f17757f8.jpg",
+    "static/media/OnMyWay.0cd45097.mp3": "/iPodJS/static/media/OnMyWay.0cd45097.mp3",
+    "static/media/OnMyWay.f0088981.jpg": "/iPodJS/static/media/OnMyWay.f0088981.jpg",
+    "static/media/Valley.3a7beb2e.jpg": "/iPodJS/static/media/Valley.3a7beb2e.jpg",
+    "static/media/WayanadGhats.185a1b9b.mp4": "/iPodJS/static/media/WayanadGhats.185a1b9b.mp4",
+    "static/media/dice.b6419d74.gif": "/iPodJS/static/media/dice.b6419d74.gif",
+    "static/media/oceans.6584adc4.mp4": "/iPodJS/static/media/oceans.6584adc4.mp4"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.6b425162.js",
+    "static/js/2.92d514e3.chunk.js",
+    "static/js/main.0914c64c.chunk.js"
+  ]
+}
