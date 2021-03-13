@@ -1,13 +1,15 @@
 {
   "files": {
-    "main.js": "/iPodJS/static/js/main.0914c64c.chunk.js",
-    "main.js.map": "/iPodJS/static/js/main.0914c64c.chunk.js.map",
+    "main.css": "/iPodJS/static/css/main.b1e4538f.chunk.css",
+    "main.js": "/iPodJS/static/js/main.05dec3f5.chunk.js",
+    "main.js.map": "/iPodJS/static/js/main.05dec3f5.chunk.js.map",
     "runtime-main.js": "/iPodJS/static/js/runtime-main.6b425162.js",
     "runtime-main.js.map": "/iPodJS/static/js/runtime-main.6b425162.js.map",
-    "static/js/2.92d514e3.chunk.js": "/iPodJS/static/js/2.92d514e3.chunk.js",
-    "static/js/2.92d514e3.chunk.js.map": "/iPodJS/static/js/2.92d514e3.chunk.js.map",
+    "static/js/2.9cb7301d.chunk.js": "/iPodJS/static/js/2.9cb7301d.chunk.js",
+    "static/js/2.9cb7301d.chunk.js.map": "/iPodJS/static/js/2.9cb7301d.chunk.js.map",
     "index.html": "/iPodJS/index.html",
-    "static/js/2.92d514e3.chunk.js.LICENSE.txt": "/iPodJS/static/js/2.92d514e3.chunk.js.LICENSE.txt",
+    "static/css/main.b1e4538f.chunk.css.map": "/iPodJS/static/css/main.b1e4538f.chunk.css.map",
+    "static/js/2.9cb7301d.chunk.js.LICENSE.txt": "/iPodJS/static/js/2.9cb7301d.chunk.js.LICENSE.txt",
     "static/media/Alone.51d6e63d.jpg": "/iPodJS/static/media/Alone.51d6e63d.jpg",
     "static/media/Alone.7abb2c75.mp3": "/iPodJS/static/media/Alone.7abb2c75.mp3",
     "static/media/Beach.0871b01e.jpg": "/iPodJS/static/media/Beach.0871b01e.jpg",
@@ -30,7 +32,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.6b425162.js",
-    "static/js/2.92d514e3.chunk.js",
-    "static/js/main.0914c64c.chunk.js"
+    "static/js/2.9cb7301d.chunk.js",
+    "static/css/main.b1e4538f.chunk.css",
+    "static/js/main.05dec3f5.chunk.js"
   ]
 }
