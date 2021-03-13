@@ -212,140 +212,174 @@ function Frame() {
         }
     }
 
+    // This function will be called when we will click the forward button.
     const onClickForwardButton = () => {
+        // If we are on brightness screen, then forward button will decrese the brightness value by 10, which in turn will increase the brightness.
         if (brightness) {
             setBrightnessValue(brightnessValue - 10);
         }
-        else if (!isFullScreen && !isMusic) {
+        // Else we will simply set the wheel direction and call changeCurrentMenuOption function to change the menu item.
+        else {
             wheelMoveDirection = "down";
-            changeCurrentMenuOption();
+            changeCurrentMenuOption()
         }
-        else if (isMusic && playNextSong) {
+        // If we are on music page and value of playNextSong is true, then this code block will execute.
+        if (isMusic && playNextSong) {
             stop();
-            if (currentMenuItem === currentMenuItems.length - 1) {
-                setCurrentMenuItem(0);
-            }
-            else {
-                setCurrentMenuItem(currentMenuItem + 1);
-            }
-            onClickCenterButton();
+            onClickCentreButton();
         }
     }
 
+    // This function will be called when we will click the backward button.
     const onClickBackwardButton = () => {
+        // If we are on brightness screen, then forward button will increase the brightness value by 10, which in turn will decrease the brightness.
         if (brightness) {
             setBrightnessValue(brightnessValue + 10);
         }
-        else if (!isFullScreen && !isMusic) {
+        // Else we will simply set the wheel direction and call changeCurrentMenuOption function to change the menu item.
+        else {
             wheelMoveDirection = "up";
-            changeCurrentMenuOption();
+            changeCurrentMenuOption()
         }
+        // If we are on music page and value of playNextSong is true, then this code block will execute.
         if (isMusic && playNextSong) {
-            setIsPaused(true)
             stop();
-            if (currentMenuItem === 0) {
-                setCurrentMenuItem(currentMenuItems.length - 1);
-            } else {
-                setCurrentMenuItem(currentMenuItem - 1);
-            }
-            onClickCenterButton();
-
+            onClickCentreButton();
         }
+
     }
 
+    // This function will be called when we will click the MENU button.
     const onClickMenuButton = () => {
+        // If the followin conditions fulfill, then we have yo return to the main menu.
         if ((!isFullScreen || isPhotos) && !bluetooth && !wifi && !gps && !brightness && !privacy) {
             setCurrentMenu("mainMenu");
             setCurrentMenuItems(mainMenuItems);
             setCurrentMenuItem(0);
         }
+        // Everytime we click on MENU button, we are setting these variables to false.
         setIsFullScreen(false);
         setBrightness(false);
         setPrivacy(false);
         setIsMusic(false);
         setIsVideo(false);
-        setGames(false)
-        setPhotos(false)
+        setGames(false);
+        setPhotos(false);
     }
 
+    // This function will be called when we will click the Play-Pause button.
     const onClickPlayPauseButton = () => {
+        // If we are on music page or on mainmenu, then the following if statement will execute.
         if (isMusic || currentMenu === "mainMenu") {
+            // If our song is paused...
             if (isPaused) {
+                // If we have to play a new song or we have not stared a song yet.
                 if (isPlaying === "notStarted" || isNewSong) {
+                    // We will call a fuction named newAudio, which we have imported from playerWorking.js.
                     newAudio(songURL);
-                } else {
+                }
+                // Else we will call the play function from PlayerWorking.js to play the current song. 
+                else {
                     play();
                 }
+                // Here we are setting the value of isPaused variable to false.
                 setIsPaused(false);
-            } else {
+            }
+            // If our song is not paused at that moment, then we will set the value of isPaused variable to true and call te pause function from playerWorking.js.
+            else {
                 setIsPaused(true);
                 pause();
             }
-
+            // Finally we will set isNewSong to false.
             setIsNewSong(false);
         }
 
+        // If we are currently on videos page...
         else if (isVideo) {
+            // if the video is paused...
             if (isPaused) {
+                // If the video has not started...
                 if (isPlaying === "notStarted") {
+                    // We will call the newVideo function imported from playerWorking.js file.
                     newVideo(videoURL);
-                } else {
+                }
+                // If the video is paused...
+                else {
+                    // call play function imported from playerWorking.js file.
                     play();
                 }
+                // set isPaused variable to false.
                 setIsPaused(false);
-            } else {
+            }
+            // If the current video is playing... 
+            else {
+                // set isPaused to true and call pause function imported from playerWorking.js.
                 setIsPaused(true);
                 pause();
             }
-
         }
 
+        // If we are on wifi page, call the toggleSettings function to accordingly turn on or off the setting.
         else if (wifi) {
-            if (isWifiOn) {
-                setIsWifiOn(false)
-            } else { setIsWifiOn(true) }
+            toggleSettings(isWifiOn, setIsWifiOn);
         }
+        // If we are on bluetooth page, call the toggleSettings function to accordingly turn on or off the setting.
         else if (bluetooth) {
-            if (isBluetoothOn) {
-                setIsBluetoothOn(false)
-            } else { setIsBluetoothOn(true) }
+            toggleSettings(isBluetoothOn, setIsBluetoothOn);
         }
+        // If we are on gps page, call the toggleSettings function to accordingly turn on or off the setting.
         else if (gps) {
-            if (isGPSOn) {
-                setIsGPSOn(false)
-            } else { setIsGPSOn(true) }
+            toggleSettings(isGPSOn, setIsGPSOn);
         }
     }
 
-    const onClickCenterButton = () => {
+    // This function will be called when we will click the centre button.
+    const onClickCentreButton = () => {
+        // This function will only execute if isFullScreen is false.
         if (!isFullScreen) {
+            // Switch cases are used to reduce the complexity and the parameter to check cases id currentMenu.
             switch (currentMenu) {
+                // Case 1: If the currentMenu is mainMenu.
                 case "mainMenu":
+                    // Here we have used nested switch case, this will be based on the currentMenuItem.
                     switch (currentMenuItem) {
+                        // Nested Case 1: If currentMenuItem is 0, which is coverflow, then we have to show full screen, and for that we have to set isFullScreen variable to true.
                         case 0:
                             setIsFullScreen(true);
                             break;
+
+                        // Nested Case 2: If currentMenuItem is 1, 2 or 6.    
                         case 1:
                         case 2:
                         case 6:
+                            // We have to change the current menu and for that, we have to call the change menu functions.
                             changeMenu(changeMenuDetails[currentMenuItem][0], changeMenuDetails[currentMenuItem][1]);
                             break;
-
+                        // Nested Case 3: If currentMenuItem is 3.    
                         case 3:
+                            // Firstly change the current menu to photosMenu.
                             changeMenu("photosMenu", photosMenuItems);
+                            // Now call the openDeviceSettings function.
                             openDeviceSettings(setPhotos, "photosMenu");
+                            // Now we have set the value of isScreen to true to show wallpaper in background.
                             setIsFullScreen(true);
                             break;
 
+                        // Nested Case 4: If currentMenuItem is 4.
                         case 4:
+                            // If we have not started a song yet, then it will display a default song in nowplaying section.
                             if (isPlaying === "notStarted") {
                                 setCurrentSongDetails(songsMenuItems, 0, songMenuItemDetails[0]);
                             }
+                            // Here we are changing the current menu by calling the changeMenu function.
                             changeMenu("songsMenu", songsMenuItems)
+                            // To display the music page, we set the isMusic variable to true.
                             setIsMusic(true);
                             break;
 
+                        // Nested Case 5: If currentMenuItem is 5.
                         case 5:
+                            // Here we called the openDeviceSettings function to set games page.
                             openDeviceSettings(setGames, "gamesMenu")
                             break;
                         default:
@@ -353,44 +387,62 @@ function Frame() {
                     };
                     break;
 
+                // Case 2: If the currentMenu is videosMenu.
                 case "videosMenu":
+                    // Here we have called the setCurrentVideoDetails function, in which we have passed the arguement, that is the currentMenuItem index of videosToApply array.
                     setCurrentVideoDetails(videosToApply[currentMenuItem])
                     break;
 
+                // Case 3: If the currentMenu is settingsMenu.   
                 case "settingMenu":
+                    // If current setting is to set wallpaper, then we have to change the menu to wallpaperMenu.
                     if (currentMenuItem === 0) {
                         changeMenu("wallpaperMenu", wallpaperMenuItems);
                     }
+                    // else we have to open the settings page for the given setting. 
                     else {
                         openDeviceSettings(settingsToApply[currentMenuItem][0], settingsToApply[currentMenuItem][1])
                     }
                     break;
 
+                // Case 4: If the currentMenu is wifiMenu, gpsMenu, bluetoothMenu, privacyMenu, brightnessMenu.
                 case "wifiMenu":
                 case "gpsMenu":
                 case "bluetoothMenu":
                 case "privacyMenu":
                 case "brightnessMenu":
+                    // Here we have to move to settings menu and close the settings page so we have to call setDeviceSettings function.
                     setDeviceSettings(settingsToApply[currentMenuItem][0]);
+                    // Here we have called the onClickMenuButton function, which will lead us to settings menu.
                     onClickMenuButton();
                     break;
 
+                // Case 5: If the currentMenu is musicMenu, then we have to change the menu by the selected menu item.   
                 case "musicMenu":
                     changeMenu(changeMusicMenuItems[currentMenuItem][0], changeMusicMenuItems[currentMenuItem][1])
                     break;
+
+                // Case 6: If the currentMenu is artistMenu, then we have to change the menu by the selected menu item.   
+                case "artistMenu":
+                    changeMenu(changeArtistMneuItems[currentMenuItem][0], changeArtistMneuItems[currentMenuItem][1]);
+                    break;
+
+                // Case 7: If the currentMenu is songsMenu, then we have to play the selected song and for that we have setCurrentSongDetails function.   
                 case "songsMenu":
                     setCurrentSongDetails(songsMenuItems, currentMenuItem, songMenuItemDetails[currentMenuItem]);
                     break;
 
-                case "artistMenu":
-                    changeMenu(changeArtistMneuItems[currentMenuItem][0], changeArtistMneuItems[currentMenuItem][1]);
-                    break;
+                // Case 8: If the currentMenu is alanWalkerMenu, then we have to play the selected song and for that we have setCurrentSongDetails function.   
                 case "alanWalkerMenu":
                     setCurrentSongDetails(alanWalkerMenuItems, currentMenuItem, alanWalkerMenuItemDetails[currentMenuItem]);
                     break;
+
+                // Case 9: If the currentMenu is taylorSwiftMenu, then we have to play the selected song and for that we have setCurrentSongDetails function.   
                 case "taylorSwiftMenu":
                     setCurrentSongDetails(taylorSwiftMenuItems, 0, taylorSwiftMenuItemsDetails[currentMenuItem]);
                     break;
+
+                // Case 10: If currentMenu is wallpaperMenu, then we have to apply the selected wallpaper and for that we have to call setSelectedWallpaper function.
                 case "wallpaperMenu":
                     setSelectedWallpaper(wallpapersToApply[currentMenuItem])
                     break;
@@ -400,21 +452,41 @@ function Frame() {
         }
     }
 
+    // This function is to toggle the wifi, bluetooth and gps settings accordingly.
+    // This function is asking for 2 parameters, one is the hook variable, by which we will detect that whether the setting is currently on or off and 2nd is the hook function to change that variable. 
+    const toggleSettings = (setting, setSetting) => {
+        // If setting is true, change it to false.
+        if (setting) {
+            setSetting(false);
+        }
+        // Else change it to true.
+        else { setSetting(true) }
+    }
+
+    // Here we are declaring setCurrentVideoDetails function, which will handle the current video details.
     const setCurrentVideoDetails = (currentVideoURL) => {
-        // setIsNewSong(true);
+        // Firstly it will stop the currenty playing media.
         stop();
-        setIsMusic(false);
+        // set isVideo to true so that Screen shows the video page. 
         setIsVideo(true);
+        // This will show the pause icon on screen, when video will not started.
         setIsPaused(true);
+        // This variable will contain the video, which we will pass to playerWorking.js file.
         setVideoURL(currentVideoURL);
     }
 
+    // Here we are declaring setCurrentSongDetails function, which will handle the current song details.
     const setCurrentSongDetails = (menuItems, menuItemsIndex, songDetails) => {
+        // This if statement will exucute if the song we have selected is not the one playing in background.
         if (songName !== menuItems[menuItemsIndex]) {
+            // Now as we have opened a new song, so we have to set isNewSong to true.
             setIsNewSong(true);
+            // This will stop the previously playing song.
             stop();
+            // This will show the pause icon on screen till the song will not pe played by clicking the play-pause button.
             setIsPaused(true);
         }
+        // Here we are defining the values of hooks variables, that contains the current song details.
         setSongName(menuItems[menuItemsIndex]);
         setSongURL(songDetails[0]);
         setSongThumbnail(songDetails[1]);
@@ -422,34 +494,48 @@ function Frame() {
         setArtistName(songDetails[2]);
     }
 
+    // Here we are declaring setSelectedWallpaper function, which will handle the current wallpaper details.
     const setSelectedWallpaper = (wallpaperName) => {
+        // This will change the hooks variable name, that contains the current wallpaper, imported earlier.
         setCurrentWallpaper(wallpaperName);
+        // As we have to apply the wallpaper and show it on full screen, so we set isFullScreen to true.
         setIsFullScreen(true);
     }
 
+    // Here we are declaring changeMenu function, which will handle the current menu details.
     const changeMenu = (menu, menuItems) => {
+        // Here we are changing the current menu to be displayed on main screen.
         setCurrentMenu(menu);
+        // Here we are changing the current menu Items to be displayed on main screen.
         setCurrentMenuItems(menuItems);
+        // We have by default selected the 1st item.
         setCurrentMenuItem(0);
     }
 
+    // Here we are declaring openDeviceSettings function, which will handle the current settings details.
     const openDeviceSettings = (settingName, menu) => {
+        // we are having an arguement as settingname, we are setting that hook variable to true.
         settingName(true);
-        setIsFullScreen(false);
+        // Here we are setting the current menu to the one we have in our 2nd arguement.
         setCurrentMenu(menu);
     }
 
+    // Here we are declaring setDeviceSettings function, which will handle the current settings details.
     const setDeviceSettings = (settings) => {
-        setIsFullScreen(true);
+        // We set the settings variable to false and set current menu to be settigns menu.
         settings(false);
         setCurrentMenu("settingMenu");
         setCurrentMenuItems(settingMenuItems);
     }
 
+
     return (
         <div className="frame">
+            {/* ---------------Screen Section --------------------------------------------- */}
+            {/* we are passing various props to Screen as according to their current state it will display the required features on screen. */}
             <Screen currentMenu={currentMenu} currentMenuItems={currentMenuItems} currentMenuItem={currentMenuItem} currentWallpaper={currentWallpaper} isFullScreen={isFullScreen} brightness={brightness} brightnessValue={brightnessValue} isWiFi={wifi} isWifiOn={isWifiOn} isBluetoothOn={isBluetoothOn} isBluetooth={bluetooth} isGPS={gps} isGPSOn={isGPSOn} privacy={privacy} isMusic={isMusic} isVideo={isVideo} isPaused={isPaused} songName={songName} artistName={artistName} songThumbnail={songThumbnail} games={games} photos={isPhotos}></Screen>
 
+            {/* -----------------------------Wheel Section ----------------------------------------- */}
             <div id="outer-wheel" onMouseDown={mouseDown} onMouseMove={mouseMove} onMouseUp={mouseUp}>
                 <p id="menu-btn" onClick={onClickMenuButton}>MENU</p>
                 <i className="fas fa-fast-forward" id="next-btn" onClick={onClickForwardButton} onMouseDown={(isMusic || isVideo) ? setProgressForward : null} onMouseUp={(isMusic || isVideo) ? stopProgressForward : null}></i>
@@ -458,7 +544,7 @@ function Frame() {
                     <i className="fas fa-play" id="play-btn"></i>
                     <i className="fas fa-pause" id="pause-btn"></i>
                 </span>
-                <div id="center-button" onClick={onClickCenterButton}></div>
+                <div id="centre-button" onClick={onClickCentreButton}></div>
             </div>
         </div>
     )
